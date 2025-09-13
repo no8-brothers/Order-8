@@ -1,11 +1,16 @@
 import React, { useState } from 'react';
 import './App.css';
+import TitleScreen from './components/TitleScreen';
 import MenuList from './components/MenuList';
 import OrderReceipt from './components/OrderReceipt';
 
 function App() {
   const [currentOrder, setCurrentOrder] = useState(null);
-  const [view, setView] = useState('menu'); // 'menu' or 'receipt'
+  const [view, setView] = useState('title'); // 'title', 'menu' or 'receipt'
+
+  const handleStartOrder = () => {
+    setView('menu');
+  };
 
   const handleOrderCreate = (order) => {
     setCurrentOrder(order);
@@ -34,6 +39,8 @@ function App() {
       <main
         style={{ minHeight: 'calc(100vh - 140px)', backgroundColor: '#f8f9fa' }}
       >
+        {view === 'title' && <TitleScreen onStartOrder={handleStartOrder} />}
+
         {view === 'menu' && <MenuList onOrderCreate={handleOrderCreate} />}
 
         {view === 'receipt' && (

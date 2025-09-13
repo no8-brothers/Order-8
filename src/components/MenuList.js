@@ -5,6 +5,7 @@ const MenuList = ({ onOrderCreate }) => {
   const [menu, setMenu] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [selectedItem, setSelectedItem] = useState(null);
 
   useEffect(() => {
     const fetchMenu = async () => {
@@ -22,9 +23,15 @@ const MenuList = ({ onOrderCreate }) => {
     fetchMenu();
   }, []);
 
-  const handleOrder = async (menuItemId) => {
+  const handleItemSelect = (item) => {
+    setSelectedItem(item);
+  };
+
+  const handleOrder = async () => {
+    if (!selectedItem) return;
+    
     try {
-      const order = await kakigoriApi.createOrder(menuItemId);
+      const order = await kakigoriApi.createOrder(selectedItem.id);
       onOrderCreate(order);
     } catch (err) {
       setError(err.message);
@@ -51,38 +58,60 @@ const MenuList = ({ onOrderCreate }) => {
     <div style={{ maxWidth: '600px', margin: '0 auto', padding: '20px' }}>
       <h2>🍧 かき氷メニュー</h2>
       <div style={{ display: 'grid', gap: '15px', marginTop: '20px' }}>
-        {menu.map((item) => (
-          <div
-            key={item.id}
-            style={{
-              border: '1px solid #ddd',
-              borderRadius: '8px',
-              padding: '20px',
-              backgroundColor: '#f9f9f9',
-            }}
-          >
-            <h3 style={{ margin: '0 0 10px 0', color: '#333' }}>{item.name}</h3>
-            <p style={{ margin: '0 0 15px 0', color: '#666' }}>
-              {item.description}
-            </p>
-            <button
-              onClick={() => handleOrder(item.id)}
+        {menu.map((item) => {
+          const isSelected = selectedItem && selectedItem.id === item.id;
+          return (
+            <div
+              key={item.id}
+              onClick={() => handleItemSelect(item)}
               style={{
-                backgroundColor: '#007bff',
-                color: 'white',
-                border: 'none',
-                padding: '10px 20px',
-                borderRadius: '5px',
+                border: isSelected ? '3px solid #007bff' : '1px solid #ddd',
+                borderRadius: '8px',
+                padding: '20px',
+                backgroundColor: isSelected ? '#e3f2fd' : '#f9f9f9',
                 cursor: 'pointer',
-                fontSize: '16px',
+                transition: 'all 0.3s ease',
               }}
-              onMouseOver={(e) => (e.target.style.backgroundColor = '#0056b3')}
-              onMouseOut={(e) => (e.target.style.backgroundColor = '#007bff')}
             >
-              注文する
-            </button>
-          </div>
-        ))}
+              <h3 style={{ margin: '0 0 10px 0', color: '#333' }}>{item.name}</h3>
+              <p style={{ margin: '0 0 15px 0', color: '#666' }}>
+                {item.description}
+              </p>
+              {isSelected && (
+                <div
+                  style={{
+                    color: '#007bff',
+                    fontWeight: 'bold',
+                    fontSize: '14px',
+                  }}
+                >
+                  ✓ 選択中
+                </div>
+              )}
+            </div>
+          );
+        })}
+      </div>
+      
+      <div style={{ marginTop: '30px', textAlign: 'center' }}>
+        <button
+          onClick={handleOrder}
+          disabled={!selectedItem}
+          style={{
+            backgroundColor: selectedItem ? '#28a745' : '#6c757d',
+            color: 'white',
+            border: 'none',
+            padding: '15px 40px',
+            borderRadius: '50px',
+            cursor: selectedItem ? 'pointer' : 'not-allowed',
+            fontSize: '18px',
+            fontWeight: 'bold',
+            transition: 'all 0.3s ease',
+            opacity: selectedItem ? 1 : 0.6,
+          }}
+        >
+          {selectedItem ? `${selectedItem.name}を注文する` : 'メニューを選択してください'}
+        </button>
       </div>
     </div>
   );

@@ -11,15 +11,18 @@ export const kakigoriApi = {
   },
 
   async createOrder(menuItemId) {
-    const response = await fetch(`${API_BASE_URL}/v1/stores/${STORE_ID}/orders`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        menu_item_id: menuItemId,
-      }),
-    });
+    const response = await fetch(
+      `${API_BASE_URL}/v1/stores/${STORE_ID}/orders`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          menu_item_id: menuItemId,
+        }),
+      }
+    );
     if (!response.ok) {
       throw new Error('Failed to create order');
     }
@@ -27,7 +30,9 @@ export const kakigoriApi = {
   },
 
   async getOrder(orderId) {
-    const response = await fetch(`${API_BASE_URL}/v1/stores/${STORE_ID}/orders/${orderId}`);
+    const response = await fetch(
+      `${API_BASE_URL}/v1/stores/${STORE_ID}/orders/${orderId}`
+    );
     if (!response.ok) {
       throw new Error('Failed to fetch order');
     }
@@ -35,7 +40,9 @@ export const kakigoriApi = {
   },
 
   async getOrders() {
-    const response = await fetch(`${API_BASE_URL}/v1/stores/${STORE_ID}/orders`);
+    const response = await fetch(
+      `${API_BASE_URL}/v1/stores/${STORE_ID}/orders`
+    );
     if (!response.ok) {
       throw new Error('Failed to fetch orders');
     }
@@ -43,9 +50,12 @@ export const kakigoriApi = {
   },
 
   async markWaitingPickup(orderId) {
-    const response = await fetch(`${API_BASE_URL}/v1/stores/${STORE_ID}/orders/${orderId}/waiting-pickup`, {
-      method: 'POST',
-    });
+    const response = await fetch(
+      `${API_BASE_URL}/v1/stores/${STORE_ID}/orders/${orderId}/waiting-pickup`,
+      {
+        method: 'POST',
+      }
+    );
     if (!response.ok) {
       throw new Error('Failed to mark order as waiting pickup');
     }
@@ -53,12 +63,15 @@ export const kakigoriApi = {
   },
 
   async completeOrder(orderId) {
-    const response = await fetch(`${API_BASE_URL}/v1/stores/${STORE_ID}/orders/${orderId}/complete`, {
-      method: 'POST',
-    });
+    const response = await fetch(
+      `${API_BASE_URL}/v1/stores/${STORE_ID}/orders/${orderId}/complete`,
+      {
+        method: 'POST',
+      }
+    );
     if (!response.ok) {
       throw new Error('Failed to complete order');
     }
     return response.json();
-  }
+  },
 };

@@ -19,25 +19,36 @@ function App() {
 
   return (
     <div className="App">
-      <header style={{ backgroundColor: '#282c34', padding: '20px', color: 'white', textAlign: 'center' }}>
+      <header
+        style={{
+          backgroundColor: '#282c34',
+          padding: '20px',
+          color: 'white',
+          textAlign: 'center',
+        }}
+      >
         <h1>🍧 かき氷注文システム</h1>
         <p>技育祭特別企画 - ラムダ技術部コラボハッカソン</p>
       </header>
-      
-      <main style={{ minHeight: 'calc(100vh - 140px)', backgroundColor: '#f8f9fa' }}>
-        {view === 'menu' && (
-          <MenuList onOrderCreate={handleOrderCreate} />
-        )}
-        
+
+      <main
+        style={{ minHeight: 'calc(100vh - 140px)', backgroundColor: '#f8f9fa' }}
+      >
+        {view === 'menu' && <MenuList onOrderCreate={handleOrderCreate} />}
+
         {view === 'receipt' && (
-          <OrderReceipt 
-            order={currentOrder} 
-            onBackToMenu={handleBackToMenu} 
-          />
+          <OrderReceipt order={currentOrder} onBackToMenu={handleBackToMenu} />
         )}
       </main>
-      
-      <footer style={{ backgroundColor: '#343a40', color: 'white', textAlign: 'center', padding: '10px' }}>
+
+      <footer
+        style={{
+          backgroundColor: '#343a40',
+          color: 'white',
+          textAlign: 'center',
+          padding: '10px',
+        }}
+      >
         <p>&copy; 2024 かき氷注文システム - Order-8</p>
       </footer>
     </div>

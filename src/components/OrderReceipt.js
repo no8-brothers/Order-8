@@ -40,7 +40,7 @@ const OrderReceipt = ({ order, onBackToMenu }) => {
             padding: '10px 20px',
             borderRadius: '5px',
             cursor: 'pointer',
-            fontSize: '16px'
+            fontSize: '16px',
           }}
         >
           メニューに戻る
@@ -50,17 +50,24 @@ const OrderReceipt = ({ order, onBackToMenu }) => {
   }
 
   return (
-    <div style={{ maxWidth: '600px', margin: '0 auto', padding: '20px', textAlign: 'center' }}>
+    <div
+      style={{
+        maxWidth: '600px',
+        margin: '0 auto',
+        padding: '20px',
+        textAlign: 'center',
+      }}
+    >
       <div
         style={{
           border: '2px solid #28a745',
           borderRadius: '10px',
           padding: '30px',
-          backgroundColor: '#f8f9fa'
+          backgroundColor: '#f8f9fa',
         }}
       >
         <h2 style={{ color: '#28a745', marginBottom: '20px' }}>🧾 注文完了</h2>
-        
+
         <div style={{ marginBottom: '20px' }}>
           <h1 style={{ fontSize: '3rem', margin: '10px 0', color: '#333' }}>
             #{order.order_number}
@@ -77,16 +84,25 @@ const OrderReceipt = ({ order, onBackToMenu }) => {
               borderRadius: '20px',
               backgroundColor: getStatusColor(order.status),
               color: 'white',
-              fontWeight: 'bold'
+              fontWeight: 'bold',
             }}
           >
             {getStatusText(order.status)}
           </div>
         </div>
 
-        <div style={{ marginTop: '30px', padding: '20px', backgroundColor: '#e9ecef', borderRadius: '8px' }}>
+        <div
+          style={{
+            marginTop: '30px',
+            padding: '20px',
+            backgroundColor: '#e9ecef',
+            borderRadius: '8px',
+          }}
+        >
           <p style={{ margin: '5px 0', color: '#666' }}>注文ID: {order.id}</p>
-          <p style={{ margin: '5px 0', color: '#666' }}>メニューID: {order.menu_item_id}</p>
+          <p style={{ margin: '5px 0', color: '#666' }}>
+            メニューID: {order.menu_item_id}
+          </p>
         </div>
 
         <button
@@ -99,10 +115,10 @@ const OrderReceipt = ({ order, onBackToMenu }) => {
             borderRadius: '5px',
             cursor: 'pointer',
             fontSize: '16px',
-            marginTop: '20px'
+            marginTop: '20px',
           }}
-          onMouseOver={(e) => e.target.style.backgroundColor = '#0056b3'}
-          onMouseOut={(e) => e.target.style.backgroundColor = '#007bff'}
+          onMouseOver={(e) => (e.target.style.backgroundColor = '#0056b3')}
+          onMouseOut={(e) => (e.target.style.backgroundColor = '#007bff')}
         >
           新しい注文をする
         </button>

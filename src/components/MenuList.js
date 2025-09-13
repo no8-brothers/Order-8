@@ -58,11 +58,13 @@ const MenuList = ({ onOrderCreate }) => {
               border: '1px solid #ddd',
               borderRadius: '8px',
               padding: '20px',
-              backgroundColor: '#f9f9f9'
+              backgroundColor: '#f9f9f9',
             }}
           >
             <h3 style={{ margin: '0 0 10px 0', color: '#333' }}>{item.name}</h3>
-            <p style={{ margin: '0 0 15px 0', color: '#666' }}>{item.description}</p>
+            <p style={{ margin: '0 0 15px 0', color: '#666' }}>
+              {item.description}
+            </p>
             <button
               onClick={() => handleOrder(item.id)}
               style={{
@@ -72,10 +74,10 @@ const MenuList = ({ onOrderCreate }) => {
                 padding: '10px 20px',
                 borderRadius: '5px',
                 cursor: 'pointer',
-                fontSize: '16px'
+                fontSize: '16px',
               }}
-              onMouseOver={(e) => e.target.style.backgroundColor = '#0056b3'}
-              onMouseOut={(e) => e.target.style.backgroundColor = '#007bff'}
+              onMouseOver={(e) => (e.target.style.backgroundColor = '#0056b3')}
+              onMouseOut={(e) => (e.target.style.backgroundColor = '#007bff')}
             >
               注文する
             </button>

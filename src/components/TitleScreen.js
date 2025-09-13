@@ -41,7 +41,8 @@ function TitleScreen({ onStartOrder }) {
           transform: 'translateX(-50%)',
           width: '80%',
           height: '4px',
-          background: 'linear-gradient(to right, transparent, var(--accent-yellow), transparent)',
+          background:
+            'linear-gradient(to right, transparent, var(--accent-yellow), transparent)',
           borderRadius: '2px',
         }}
       />
@@ -70,7 +71,7 @@ function TitleScreen({ onStartOrder }) {
         >
           8番注文口
         </div>
-        
+
         <h1
           style={{
             fontSize: '1.5rem',
@@ -82,7 +83,7 @@ function TitleScreen({ onStartOrder }) {
         >
           かき氷注文システム
         </h1>
-        
+
         <div
           style={{
             fontSize: '0.9rem',
@@ -124,7 +125,9 @@ function TitleScreen({ onStartOrder }) {
             e.target.style.color = 'var(--accent-yellow)';
           }}
         >
-          タップして<br />注文を開始
+          タップして
+          <br />
+          注文を開始
         </button>
       </div>
 

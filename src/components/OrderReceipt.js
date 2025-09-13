@@ -29,10 +29,10 @@ const getStatusColor = (status) => {
 const OrderReceipt = ({ order, onBackToMenu }) => {
   if (!order) {
     return (
-      <div 
+      <div
         className="underground-bg"
-        style={{ 
-          textAlign: 'center', 
+        style={{
+          textAlign: 'center',
           padding: '20px',
           minHeight: 'calc(100vh - 140px)',
           display: 'flex',
@@ -87,7 +87,8 @@ const OrderReceipt = ({ order, onBackToMenu }) => {
           transform: 'translateX(-50%)',
           width: '90%',
           height: '3px',
-          background: 'linear-gradient(to right, transparent, var(--accent-yellow), transparent)',
+          background:
+            'linear-gradient(to right, transparent, var(--accent-yellow), transparent)',
           borderRadius: '2px',
         }}
       />
@@ -112,8 +113,8 @@ const OrderReceipt = ({ order, onBackToMenu }) => {
         </div>
 
         {/* 大きな注文番号表示 */}
-        <div 
-          style={{ 
+        <div
+          style={{
             marginBottom: '30px',
             padding: '20px',
             border: '2px solid var(--accent-yellow)',
@@ -121,14 +122,20 @@ const OrderReceipt = ({ order, onBackToMenu }) => {
             backgroundColor: 'var(--bg-darker)',
           }}
         >
-          <div style={{ fontSize: '0.9rem', color: 'var(--text-dim)', marginBottom: '10px' }}>
+          <div
+            style={{
+              fontSize: '0.9rem',
+              color: 'var(--text-dim)',
+              marginBottom: '10px',
+            }}
+          >
             ORDER NUMBER
           </div>
-          <h1 
+          <h1
             className="fluorescent-light"
-            style={{ 
-              fontSize: '4rem', 
-              margin: '0', 
+            style={{
+              fontSize: '4rem',
+              margin: '0',
               color: 'var(--accent-yellow)',
               fontWeight: 'bold',
               letterSpacing: '3px',
@@ -140,9 +147,9 @@ const OrderReceipt = ({ order, onBackToMenu }) => {
 
         {/* メニュー名とステータス */}
         <div style={{ marginBottom: '30px' }}>
-          <h3 
-            style={{ 
-              margin: '0 0 15px 0', 
+          <h3
+            style={{
+              margin: '0 0 15px 0',
               color: 'var(--text-light)',
               fontSize: '1.5rem',
               letterSpacing: '1px',
@@ -179,16 +186,42 @@ const OrderReceipt = ({ order, onBackToMenu }) => {
             textAlign: 'left',
           }}
         >
-          <div style={{ borderBottom: '1px dashed var(--border-gray)', paddingBottom: '10px', marginBottom: '10px' }}>
-            <div style={{ color: 'var(--text-dim)', fontSize: '0.8rem' }}>RECEIPT</div>
+          <div
+            style={{
+              borderBottom: '1px dashed var(--border-gray)',
+              paddingBottom: '10px',
+              marginBottom: '10px',
+            }}
+          >
+            <div style={{ color: 'var(--text-dim)', fontSize: '0.8rem' }}>
+              RECEIPT
+            </div>
           </div>
-          <div style={{ margin: '5px 0', color: 'var(--text-light)', fontSize: '0.9rem' }}>
+          <div
+            style={{
+              margin: '5px 0',
+              color: 'var(--text-light)',
+              fontSize: '0.9rem',
+            }}
+          >
             ORDER ID: {order.id}
           </div>
-          <div style={{ margin: '5px 0', color: 'var(--text-light)', fontSize: '0.9rem' }}>
+          <div
+            style={{
+              margin: '5px 0',
+              color: 'var(--text-light)',
+              fontSize: '0.9rem',
+            }}
+          >
             MENU ID: {order.menu_item_id}
           </div>
-          <div style={{ margin: '5px 0', color: 'var(--text-light)', fontSize: '0.9rem' }}>
+          <div
+            style={{
+              margin: '5px 0',
+              color: 'var(--text-light)',
+              fontSize: '0.9rem',
+            }}
+          >
             STATUS: {order.status.toUpperCase()}
           </div>
         </div>

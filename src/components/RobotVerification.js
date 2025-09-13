@@ -75,7 +75,9 @@ const RobotVerification = ({ isVisible, onVerified, onCancel }) => {
             gap: '15px',
             cursor: 'pointer',
             transition: 'all 0.3s ease',
-            borderColor: isChecked ? 'var(--accent-yellow)' : 'var(--border-gray)',
+            borderColor: isChecked
+              ? 'var(--accent-yellow)'
+              : 'var(--border-gray)',
           }}
           onClick={handleCheckboxChange}
         >
@@ -85,7 +87,9 @@ const RobotVerification = ({ isVisible, onVerified, onCancel }) => {
               height: '24px',
               border: '2px solid var(--border-gray)',
               borderRadius: '3px',
-              backgroundColor: isChecked ? 'var(--accent-yellow)' : 'transparent',
+              backgroundColor: isChecked
+                ? 'var(--accent-yellow)'
+                : 'transparent',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
@@ -109,7 +113,7 @@ const RobotVerification = ({ isVisible, onVerified, onCancel }) => {
               '✓'
             ) : null}
           </div>
-          
+
           <span
             style={{
               color: 'var(--text-light)',
@@ -137,7 +141,6 @@ const RobotVerification = ({ isVisible, onVerified, onCancel }) => {
         >
           キャンセル
         </button>
-
       </div>
     </div>
   );

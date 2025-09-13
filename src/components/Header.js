@@ -12,7 +12,7 @@ function Header() {
         position: 'relative',
       }}
     >
-      <div 
+      <div
         style={{
           fontSize: '0.8rem',
           color: 'var(--text-dim)',
@@ -22,7 +22,7 @@ function Header() {
       >
         UNDERGROUND KAKIGORI SYSTEM
       </div>
-      <h1 
+      <h1
         style={{
           margin: '0',
           fontSize: '1.3rem',

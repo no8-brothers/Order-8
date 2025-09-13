@@ -34,11 +34,19 @@ function App() {
       <Header />
 
       <main
-        style={{ minHeight: 'calc(100vh - 100px)', backgroundColor: 'var(--bg-dark)' }}
+        style={{
+          minHeight: 'calc(100vh - 100px)',
+          backgroundColor: 'var(--bg-dark)',
+        }}
       >
         {view === 'title' && <TitleScreen onStartOrder={handleStartOrder} />}
 
-        {view === 'menu' && <MenuList onOrderCreate={handleOrderCreate} onBackToPreviousExit={handleBackToPreviousExit} />}
+        {view === 'menu' && (
+          <MenuList
+            onOrderCreate={handleOrderCreate}
+            onBackToPreviousExit={handleBackToPreviousExit}
+          />
+        )}
 
         {view === 'receipt' && (
           <OrderReceipt order={currentOrder} onBackToMenu={handleBackToMenu} />

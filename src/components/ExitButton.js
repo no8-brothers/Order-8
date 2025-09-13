@@ -1,11 +1,11 @@
 import React from 'react';
 
-const ExitButton = ({ 
-  onClick, 
-  children, 
-  disabled = false, 
+const ExitButton = ({
+  onClick,
+  children,
+  disabled = false,
   variant = 'default',
-  size = 'medium'
+  size = 'medium',
 }) => {
   const getButtonStyles = () => {
     const baseStyles = {
@@ -52,11 +52,7 @@ const ExitButton = ({
   };
 
   return (
-    <button
-      onClick={onClick}
-      disabled={disabled}
-      style={getButtonStyles()}
-    >
+    <button onClick={onClick} disabled={disabled} style={getButtonStyles()}>
       {children}
     </button>
   );

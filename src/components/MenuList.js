@@ -31,7 +31,7 @@ const MenuList = ({ onOrderCreate, onBackToPreviousExit }) => {
 
   const handleOrder = async () => {
     if (!selectedItem) return;
-    
+
     try {
       const order = await kakigoriApi.createOrder(selectedItem.id);
       onOrderCreate(order);
@@ -57,11 +57,11 @@ const MenuList = ({ onOrderCreate, onBackToPreviousExit }) => {
   }
 
   return (
-    <div 
+    <div
       className="underground-bg"
-      style={{ 
-        maxWidth: '800px', 
-        margin: '0 auto', 
+      style={{
+        maxWidth: '800px',
+        margin: '0 auto',
         padding: '20px',
         minHeight: 'calc(100vh - 140px)',
         position: 'relative',
@@ -77,7 +77,8 @@ const MenuList = ({ onOrderCreate, onBackToPreviousExit }) => {
           transform: 'translateX(-50%)',
           width: '90%',
           height: '3px',
-          background: 'linear-gradient(to right, transparent, var(--accent-yellow), transparent)',
+          background:
+            'linear-gradient(to right, transparent, var(--accent-yellow), transparent)',
           borderRadius: '2px',
         }}
       />
@@ -102,84 +103,84 @@ const MenuList = ({ onOrderCreate, onBackToPreviousExit }) => {
         }}
       >
         <div style={{ display: 'grid', gap: '12px', marginBottom: '30px' }}>
-        {menu.map((item, index) => {
-          const isSelected = selectedItem && selectedItem.id === item.id;
-          return (
-            <div
-              key={item.id}
-              onClick={() => handleItemSelect(item)}
-              className={isSelected ? 'fluorescent-light' : ''}
-              style={{
-                border: isSelected 
-                  ? '2px solid var(--accent-yellow)' 
-                  : '1px solid var(--border-gray)',
-                borderRadius: '4px',
-                padding: '20px',
-                backgroundColor: isSelected 
-                  ? 'var(--bg-tile)' 
-                  : 'var(--bg-darker)',
-                cursor: 'pointer',
-                transition: 'all 0.3s ease',
-                position: 'relative',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '20px',
-              }}
-            >
-              {/* 路線図風の番号 */}
+          {menu.map((item, index) => {
+            const isSelected = selectedItem && selectedItem.id === item.id;
+            return (
               <div
+                key={item.id}
+                onClick={() => handleItemSelect(item)}
+                className={isSelected ? 'fluorescent-light' : ''}
                 style={{
-                  width: '40px',
-                  height: '40px',
-                  borderRadius: '50%',
-                  backgroundColor: isSelected 
-                    ? 'var(--accent-yellow)' 
-                    : 'var(--border-gray)',
-                  color: isSelected 
-                    ? 'var(--bg-darker)' 
-                    : 'var(--text-light)',
+                  border: isSelected
+                    ? '2px solid var(--accent-yellow)'
+                    : '1px solid var(--border-gray)',
+                  borderRadius: '4px',
+                  padding: '20px',
+                  backgroundColor: isSelected
+                    ? 'var(--bg-tile)'
+                    : 'var(--bg-darker)',
+                  cursor: 'pointer',
+                  transition: 'all 0.3s ease',
+                  position: 'relative',
                   display: 'flex',
                   alignItems: 'center',
-                  justifyContent: 'center',
-                  fontWeight: 'bold',
-                  fontSize: '1rem',
-                  flexShrink: 0,
+                  gap: '20px',
                 }}
               >
-                {index + 1}
-              </div>
-
-              <div style={{ flex: 1 }}>
-                <h3 
-                  style={{ 
-                    margin: '0 0 8px 0', 
-                    color: 'var(--text-light)',
-                    fontSize: '1.2rem',
+                {/* 路線図風の番号 */}
+                <div
+                  style={{
+                    width: '40px',
+                    height: '40px',
+                    borderRadius: '50%',
+                    backgroundColor: isSelected
+                      ? 'var(--accent-yellow)'
+                      : 'var(--border-gray)',
+                    color: isSelected
+                      ? 'var(--bg-darker)'
+                      : 'var(--text-light)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
                     fontWeight: 'bold',
+                    fontSize: '1rem',
+                    flexShrink: 0,
                   }}
                 >
-                  {item.name}
-                </h3>
-                <p 
-                  style={{ 
-                    margin: '0', 
-                    color: 'var(--text-dim)',
-                    fontSize: '0.9rem',
-                    lineHeight: '1.4',
-                  }}
-                >
-                  {item.description}
-                </p>
+                  {index + 1}
+                </div>
+
+                <div style={{ flex: 1 }}>
+                  <h3
+                    style={{
+                      margin: '0 0 8px 0',
+                      color: 'var(--text-light)',
+                      fontSize: '1.2rem',
+                      fontWeight: 'bold',
+                    }}
+                  >
+                    {item.name}
+                  </h3>
+                  <p
+                    style={{
+                      margin: '0',
+                      color: 'var(--text-dim)',
+                      fontSize: '0.9rem',
+                      lineHeight: '1.4',
+                    }}
+                  >
+                    {item.description}
+                  </p>
+                </div>
               </div>
-            </div>
-          );
-        })}
+            );
+          })}
         </div>
       </div>
-      
-      <div 
+
+      <div
         className="exit-sign"
-        style={{ 
+        style={{
           textAlign: 'center',
           padding: '20px',
           display: 'flex',
@@ -196,7 +197,7 @@ const MenuList = ({ onOrderCreate, onBackToPreviousExit }) => {
         >
           引き返す
         </ExitButton>
-        
+
         <ExitButton
           onClick={handleOrder}
           disabled={!selectedItem}

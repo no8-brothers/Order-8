@@ -4,7 +4,11 @@ const ExitSign = ({ exitNumber, size = 'medium' }) => {
   const getSizeStyles = () => {
     const sizes = {
       small: { padding: '8px 16px', fontSize: '0.9rem', letterSpacing: '1px' },
-      medium: { padding: '16px 32px', fontSize: '1.4rem', letterSpacing: '2px' },
+      medium: {
+        padding: '16px 32px',
+        fontSize: '1.4rem',
+        letterSpacing: '2px',
+      },
       large: { padding: '20px 40px', fontSize: '1.8rem', letterSpacing: '3px' },
     };
     return sizes[size];

@@ -18,7 +18,7 @@ function Header() {
           letterSpacing: '1px',
         }}
       >
-        KAKIGORI SYSTEM
+        UNDERGROUND KAKIGORI SYSTEM
       </div>
       <h1
         style={{

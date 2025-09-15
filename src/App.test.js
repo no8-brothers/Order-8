@@ -3,6 +3,7 @@ import App from './App';
 
 test('renders ORDER-8 system header', () => {
   render(<App />);
+
   const headerElement = screen.getByRole('heading', {
     name: /🍧 ORDER-8 SYSTEM/i,
   });

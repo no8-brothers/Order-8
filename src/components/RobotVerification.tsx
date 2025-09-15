@@ -6,7 +6,11 @@ interface RobotVerificationProps {
   onCancel: () => void;
 }
 
-const RobotVerification: React.FC<RobotVerificationProps> = ({ isVisible, onVerified, onCancel }) => {
+const RobotVerification: React.FC<RobotVerificationProps> = ({
+  isVisible,
+  onVerified,
+  onCancel,
+}) => {
   const [isChecked, setIsChecked] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 

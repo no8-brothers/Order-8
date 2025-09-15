@@ -14,7 +14,10 @@ interface MenuItem {
   description: string;
 }
 
-const MenuList: React.FC<MenuListProps> = ({ onOrderCreate, onBackToPreviousExit }) => {
+const MenuList: React.FC<MenuListProps> = ({
+  onOrderCreate,
+  onBackToPreviousExit,
+}) => {
   const [menu, setMenu] = useState<MenuItem[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);

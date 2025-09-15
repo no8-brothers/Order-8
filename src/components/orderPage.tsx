@@ -24,9 +24,8 @@ const orderPage: React.FC<OrderPageProps> = ({
   handleStartOrder,
   handleOrderCreate,
   handleBackToMenu,
-  handleBackToPreviousExit
+  handleBackToPreviousExit,
 }) => {
-  
   return (
     <div>
       <Header />

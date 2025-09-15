@@ -121,11 +121,13 @@ function TitleScreen({ onStartOrder }: TitleScreenProps): React.JSX.Element {
             minWidth: '220px',
           }}
           onMouseEnter={(e) => {
-            (e.target as HTMLElement).style.backgroundColor = 'var(--accent-yellow)';
+            (e.target as HTMLElement).style.backgroundColor =
+              'var(--accent-yellow)';
             (e.target as HTMLElement).style.color = 'var(--bg-darker)';
           }}
           onMouseLeave={(e) => {
-            (e.target as HTMLElement).style.backgroundColor = 'var(--bg-darker)';
+            (e.target as HTMLElement).style.backgroundColor =
+              'var(--bg-darker)';
             (e.target as HTMLElement).style.color = 'var(--accent-yellow)';
           }}
         >

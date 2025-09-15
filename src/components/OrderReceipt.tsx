@@ -1,6 +1,6 @@
 import React from 'react';
 
-const getStatusText = (status) => {
+const getStatusText = (status: string) => {
   switch (status) {
     case 'pending':
       return '■ 注文受付中';
@@ -13,7 +13,7 @@ const getStatusText = (status) => {
   }
 };
 
-const getStatusColor = (status) => {
+const getStatusColor = (status: string) => {
   switch (status) {
     case 'pending':
       return 'var(--accent-yellow)';
@@ -26,7 +26,20 @@ const getStatusColor = (status) => {
   }
 };
 
-const OrderReceipt = ({ order, onBackToMenu }) => {
+interface Order {
+  id: string;
+  order_number: string;
+  menu_name: string;
+  status: string;
+  menu_item_id: string;
+}
+
+interface OrderReceiptProps {
+  order: Order | null;
+  onBackToMenu: () => void;
+}
+
+const OrderReceipt: React.FC<OrderReceiptProps> = ({ order, onBackToMenu }) => {
   if (!order) {
     return (
       <div

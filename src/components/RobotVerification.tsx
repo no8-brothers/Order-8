@@ -1,6 +1,12 @@
 import React, { useState, useEffect } from 'react';
 
-const RobotVerification = ({ isVisible, onVerified, onCancel }) => {
+interface RobotVerificationProps {
+  isVisible: boolean;
+  onVerified: () => void;
+  onCancel: () => void;
+}
+
+const RobotVerification: React.FC<RobotVerificationProps> = ({ isVisible, onVerified, onCancel }) => {
   const [isChecked, setIsChecked] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 

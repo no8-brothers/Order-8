@@ -1,4 +1,6 @@
-function Footer() {
+import React from 'react';
+
+function Footer(): React.JSX.Element {
   return (
     <footer
       style={{

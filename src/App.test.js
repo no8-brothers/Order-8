@@ -4,7 +4,7 @@ import App from './App';
 test('renders kakigori order system header', () => {
   render(<App />);
   const titleElement = screen.getByRole('heading', {
-    name: /🍧 かき氷注文システム/i,
+    name: /かき氷注文システム/i,
   });
   expect(titleElement).toBeInTheDocument();
 });

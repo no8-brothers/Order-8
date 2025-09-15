@@ -14,12 +14,14 @@
   },
   "scripts": {
     "start": "react-scripts start",
+    "prebuild": "node scripts/copy-env.js",
     "build": "react-scripts build",
     "test": "npm run format:check && npm run build && react-scripts test --watchAll=false",
     "test:watch": "react-scripts test",
     "eject": "react-scripts eject",
     "format": "prettier --write \"src/**/*.{js,jsx,ts,tsx,json,css,md}\"",
-    "format:check": "prettier --check \"src/**/*.{js,jsx,ts,tsx,json,css,md}\""
+    "format:check": "prettier --check \"src/**/*.{js,jsx,ts,tsx,json,css,md}\"",
+    "deploy": "npm run build && vercel --prod"
   },
   "eslintConfig": {
     "extends": [

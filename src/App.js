@@ -1,11 +1,18 @@
 import React, { useState } from 'react';
 import './App.css';
+import Header from './components/Header';
+import Footer from './components/Footer';
+import TitleScreen from './components/TitleScreen';
 import MenuList from './components/MenuList';
 import OrderReceipt from './components/OrderReceipt';
 
 function App() {
   const [currentOrder, setCurrentOrder] = useState(null);
-  const [view, setView] = useState('menu'); // 'menu' or 'receipt'
+  const [view, setView] = useState('title'); // 'title', 'menu' or 'receipt'
+
+  const handleStartOrder = () => {
+    setView('menu');
+  };
 
   const handleOrderCreate = (order) => {
     setCurrentOrder(order);
@@ -17,40 +24,36 @@ function App() {
     setView('menu');
   };
 
+  const handleBackToPreviousExit = () => {
+    setCurrentOrder(null);
+    setView('title');
+  };
+
   return (
     <div className="App">
-      <header
-        style={{
-          backgroundColor: '#282c34',
-          padding: '20px',
-          color: 'white',
-          textAlign: 'center',
-        }}
-      >
-        <h1>🍧 かき氷注文システム</h1>
-        <p>技育祭特別企画 - ラムダ技術部コラボハッカソン</p>
-      </header>
+      <Header />
 
       <main
-        style={{ minHeight: 'calc(100vh - 140px)', backgroundColor: '#f8f9fa' }}
+        style={{
+          minHeight: 'calc(100vh - 100px)',
+          backgroundColor: 'var(--bg-dark)',
+        }}
       >
-        {view === 'menu' && <MenuList onOrderCreate={handleOrderCreate} />}
+        {view === 'title' && <TitleScreen onStartOrder={handleStartOrder} />}
+
+        {view === 'menu' && (
+          <MenuList
+            onOrderCreate={handleOrderCreate}
+            onBackToPreviousExit={handleBackToPreviousExit}
+          />
+        )}
 
         {view === 'receipt' && (
           <OrderReceipt order={currentOrder} onBackToMenu={handleBackToMenu} />
         )}
       </main>
 
-      <footer
-        style={{
-          backgroundColor: '#343a40',
-          color: 'white',
-          textAlign: 'center',
-          padding: '10px',
-        }}
-      >
-        <p>&copy; 2024 かき氷注文システム - Order-8</p>
-      </footer>
+      <Footer />
     </div>
   );
 }

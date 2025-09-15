@@ -1,16 +1,17 @@
 import { render, screen } from '@testing-library/react';
 import App from './App';
 
-test('renders kakigori order system header', () => {
+test('renders ORDER-8 system header', () => {
   render(<App />);
-  const titleElement = screen.getByRole('heading', {
-    name: /かき氷注文システム/i,
+
+  const headerElement = screen.getByRole('heading', {
+    name: /🍧 ORDER-8 SYSTEM/i,
   });
-  expect(titleElement).toBeInTheDocument();
+  expect(headerElement).toBeInTheDocument();
 });
 
-test('renders loading message initially', () => {
+test('renders title screen initially', () => {
   render(<App />);
-  const loadingElement = screen.getByText(/メニューを読み込み中/i);
-  expect(loadingElement).toBeInTheDocument();
+  const titleElement = screen.getByText(/タップして/i);
+  expect(titleElement).toBeInTheDocument();
 });

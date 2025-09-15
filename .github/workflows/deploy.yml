@@ -33,6 +33,7 @@ jobs:
           vercel-org-id: ${{ secrets.ORG_ID }}
           vercel-project-id: ${{ secrets.PROJECT_ID }}
           vercel-args: '--prod'
+          github-token: ${{ secrets.GITHUB_TOKEN }}
         env:
           REACT_APP_API_BASE_URL: ${{ secrets.REACT_APP_API_BASE_URL }}
           REACT_APP_STORE_ID: ${{ secrets.REACT_APP_STORE_ID }}

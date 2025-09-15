@@ -1,6 +1,14 @@
 import React from 'react';
 
-const ExitButton = ({
+interface ExitButtonProps {
+  onClick: () => void;
+  children: React.ReactNode;
+  disabled?: boolean;
+  variant?: 'default' | 'primary' | 'danger';
+  size?: 'small' | 'medium' | 'large';
+}
+
+const ExitButton: React.FC<ExitButtonProps> = ({
   onClick,
   children,
   disabled = false,

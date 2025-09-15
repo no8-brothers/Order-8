@@ -1,6 +1,11 @@
 import React from 'react';
 
-const ExitSign = ({ exitNumber, size = 'medium' }) => {
+interface ExitSignProps {
+  exitNumber: number;
+  size?: 'small' | 'medium' | 'large';
+}
+
+const ExitSign: React.FC<ExitSignProps> = ({ exitNumber, size = 'medium' }) => {
   const getSizeStyles = () => {
     const sizes = {
       small: { padding: '8px 16px', fontSize: '0.9rem', letterSpacing: '1px' },

@@ -3,11 +3,25 @@ import { kakigoriApi } from '../api/client';
 import ExitButton from './ExitButton';
 import ExitSign from './ExitSign';
 
-const MenuList = ({ onOrderCreate, onBackToPreviousExit }) => {
-  const [menu, setMenu] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const [selectedItem, setSelectedItem] = useState(null);
+interface MenuListProps {
+  onOrderCreate: (order: any) => void;
+  onBackToPreviousExit: () => void;
+}
+
+interface MenuItem {
+  id: string;
+  name: string;
+  description: string;
+}
+
+const MenuList: React.FC<MenuListProps> = ({
+  onOrderCreate,
+  onBackToPreviousExit,
+}) => {
+  const [menu, setMenu] = useState<MenuItem[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
+  const [selectedItem, setSelectedItem] = useState<MenuItem | null>(null);
 
   useEffect(() => {
     const fetchMenu = async () => {
@@ -16,7 +30,7 @@ const MenuList = ({ onOrderCreate, onBackToPreviousExit }) => {
         const response = await kakigoriApi.getMenu();
         setMenu(response.menu);
       } catch (err) {
-        setError(err.message);
+        setError((err as Error).message);
       } finally {
         setLoading(false);
       }
@@ -25,7 +39,7 @@ const MenuList = ({ onOrderCreate, onBackToPreviousExit }) => {
     fetchMenu();
   }, []);
 
-  const handleItemSelect = (item) => {
+  const handleItemSelect = (item: MenuItem) => {
     setSelectedItem(item);
   };
 
@@ -36,7 +50,7 @@ const MenuList = ({ onOrderCreate, onBackToPreviousExit }) => {
       const order = await kakigoriApi.createOrder(selectedItem.id);
       onOrderCreate(order);
     } catch (err) {
-      setError(err.message);
+      setError((err as Error).message);
     }
   };
 

@@ -1,7 +1,11 @@
 import React, { useState } from 'react';
 import RobotVerification from './RobotVerification';
 
-function TitleScreen({ onStartOrder }) {
+interface TitleScreenProps {
+  onStartOrder: () => void;
+}
+
+function TitleScreen({ onStartOrder }: TitleScreenProps): React.JSX.Element {
   const [showRobotCheck, setShowRobotCheck] = useState(false);
 
   const handleStartClick = () => {
@@ -117,12 +121,14 @@ function TitleScreen({ onStartOrder }) {
             minWidth: '220px',
           }}
           onMouseEnter={(e) => {
-            e.target.style.backgroundColor = 'var(--accent-yellow)';
-            e.target.style.color = 'var(--bg-darker)';
+            (e.target as HTMLElement).style.backgroundColor =
+              'var(--accent-yellow)';
+            (e.target as HTMLElement).style.color = 'var(--bg-darker)';
           }}
           onMouseLeave={(e) => {
-            e.target.style.backgroundColor = 'var(--bg-darker)';
-            e.target.style.color = 'var(--accent-yellow)';
+            (e.target as HTMLElement).style.backgroundColor =
+              'var(--bg-darker)';
+            (e.target as HTMLElement).style.color = 'var(--accent-yellow)';
           }}
         >
           タップして

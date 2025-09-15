@@ -1,4 +1,6 @@
-function Header() {
+import React from 'react';
+
+function Header(): React.JSX.Element {
   return (
     <header
       style={{

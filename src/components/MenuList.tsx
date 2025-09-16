@@ -2,10 +2,17 @@ import React, { useState, useEffect } from 'react';
 import { kakigoriApi } from '../api/client';
 import ExitButton from './ExitButton';
 import ExitSign from './ExitSign';
+import MenuArea from './MenuArea';
+import FlashingMenuArea from './FlashingMenuArea';
+import { orderStorage } from '../utils/orderStorage';
 
 interface MenuListProps {
   onOrderCreate: (order: any) => void;
   onBackToPreviousExit: () => void;
+  currentOrderCounter: number;
+  onMoveToNextCounter: () => void;
+  onMoveToPreviousCounter: () => void;
+  onForceReturnToZero: () => void;
 }
 
 interface MenuItem {
@@ -17,11 +24,107 @@ interface MenuItem {
 const MenuList: React.FC<MenuListProps> = ({
   onOrderCreate,
   onBackToPreviousExit,
+  currentOrderCounter,
+  onMoveToNextCounter,
+  onMoveToPreviousCounter,
+  onForceReturnToZero,
 }) => {
   const [menu, setMenu] = useState<MenuItem[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const [selectedItem, setSelectedItem] = useState<MenuItem | null>(null);
+  const [currentMenuAreaId, setCurrentMenuAreaId] = useState<number>(0);
+
+  useEffect(() => {
+    setSelectedItem(null);
+  }, [currentOrderCounter]);
+
+  useEffect(() => {
+    const menuAreaId = orderStorage.getCurrentMenuAreaId();
+    setCurrentMenuAreaId(menuAreaId);
+    console.log(`現在のMenuArea ID: ${menuAreaId}`);
+  }, []);
+
+  useEffect(() => {
+    let anomalyId: number;
+
+    if (currentOrderCounter === 0 || currentOrderCounter === 8) {
+      anomalyId = 0; // 0番と8番は必ず正常
+    } else {
+      // 現在: ID 0 (正常), ID 1 (ちらつき) の2種類
+      // 将来的に異変が増えた場合、ここで利用可能なIDの数を動的に取得
+      const availableIds = [0, 1]; // MenuArea, FlashingMenuArea
+      anomalyId = availableIds[Math.floor(Math.random() * availableIds.length)];
+    }
+
+    setCurrentMenuAreaId(anomalyId);
+    orderStorage.setCurrentMenuAreaId(anomalyId);
+    console.log(
+      `${currentOrderCounter}番注文口: MenuArea ID ${anomalyId} ${getMenuAreaTypeName(anomalyId)}`
+    );
+
+    // 注文口移動時に画面を最上部にスクロール
+    window.scrollTo(0, 0);
+  }, [currentOrderCounter]);
+
+  const getMenuAreaTypeName = (id: number): string => {
+    switch (id) {
+      case 0: return '(正常)';
+      case 1: return '(ちらつき異変)';
+      default: return `(異変ID: ${id})`;
+    }
+  };
+
+  const renderMenuArea = () => {
+    const commonProps = {
+      menu,
+      selectedItem,
+      onItemSelect: handleItemSelect,
+    };
+
+    switch (currentMenuAreaId) {
+      case 0:
+        return <MenuArea {...commonProps} />;
+      case 1:
+        return <FlashingMenuArea {...commonProps} />;
+      default:
+        // 未定義のIDの場合は正常なMenuAreaをフォールバック
+        return <MenuArea {...commonProps} />;
+    }
+  };
+
+  const isCorrectButton = (buttonType: 'back' | 'order', anomalyId: number): boolean => {
+    if (anomalyId === 0) {
+      return buttonType === 'order'; // 正常時は「注文する」
+    } else {
+      return buttonType === 'back'; // 異変時は「引き返す」
+    }
+  };
+
+  const handleBackClick = () => {
+    if (isCorrectButton('back', currentMenuAreaId)) {
+      // 異変時は「引き返す」で次の注文口に進む
+      onMoveToNextCounter();
+      console.log('正解: 異変時の引き返すボタンで次に移動');
+    } else {
+      onForceReturnToZero(); // 不正解: 0番注文口へ
+      console.log('不正解: 0番注文口に戻される');
+    }
+  };
+
+  const handleOrderClick = () => {
+    if (currentOrderCounter === 8 && selectedItem) {
+      handleOrder(); // 8番で商品選択済みは注文実行
+      console.log('8番注文口で注文実行');
+    } else if (isCorrectButton('order', currentMenuAreaId)) {
+      // 正常時は「注文する」で次の注文口に進む
+      onMoveToNextCounter();
+      console.log('正解: 正常時の注文するボタンで次に移動');
+    } else {
+      onForceReturnToZero(); // 不正解: 0番注文口へ
+      console.log('不正解: 0番注文口に戻される');
+    }
+  };
 
   useEffect(() => {
     const fetchMenu = async () => {
@@ -105,92 +208,11 @@ const MenuList: React.FC<MenuListProps> = ({
           justifyContent: 'flex-start',
         }}
       >
-        <ExitSign exitNumber={0} size="medium" />
+        <ExitSign exitNumber={currentOrderCounter} size="medium" />
       </div>
 
       {/* メニューエリア */}
-      <div
-        className="exit-sign"
-        style={{
-          marginBottom: '30px',
-          padding: '25px',
-        }}
-      >
-        <div style={{ display: 'grid', gap: '12px', marginBottom: '30px' }}>
-          {menu.map((item, index) => {
-            const isSelected = selectedItem && selectedItem.id === item.id;
-            return (
-              <div
-                key={item.id}
-                onClick={() => handleItemSelect(item)}
-                className={isSelected ? 'fluorescent-light' : ''}
-                style={{
-                  border: isSelected
-                    ? '2px solid var(--accent-yellow)'
-                    : '1px solid var(--border-gray)',
-                  borderRadius: '4px',
-                  padding: '20px',
-                  backgroundColor: isSelected
-                    ? 'var(--bg-tile)'
-                    : 'var(--bg-darker)',
-                  cursor: 'pointer',
-                  transition: 'all 0.3s ease',
-                  position: 'relative',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '20px',
-                }}
-              >
-                {/* 路線図風の番号 */}
-                <div
-                  style={{
-                    width: '40px',
-                    height: '40px',
-                    borderRadius: '50%',
-                    backgroundColor: isSelected
-                      ? 'var(--accent-yellow)'
-                      : 'var(--border-gray)',
-                    color: isSelected
-                      ? 'var(--bg-darker)'
-                      : 'var(--text-light)',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    fontWeight: 'bold',
-                    fontSize: '1rem',
-                    flexShrink: 0,
-                  }}
-                >
-                  {index + 1}
-                </div>
-
-                <div style={{ flex: 1 }}>
-                  <h3
-                    style={{
-                      margin: '0 0 8px 0',
-                      color: 'var(--text-light)',
-                      fontSize: '1.2rem',
-                      fontWeight: 'bold',
-                    }}
-                  >
-                    {item.name}
-                  </h3>
-                  <p
-                    style={{
-                      margin: '0',
-                      color: 'var(--text-dim)',
-                      fontSize: '0.9rem',
-                      lineHeight: '1.4',
-                    }}
-                  >
-                    {item.description}
-                  </p>
-                </div>
-              </div>
-            );
-          })}
-        </div>
-      </div>
+      {renderMenuArea()}
 
       <div
         className="exit-sign"
@@ -204,16 +226,15 @@ const MenuList: React.FC<MenuListProps> = ({
         }}
       >
         <ExitButton
-          onClick={onBackToPreviousExit}
+          onClick={handleBackClick}
           variant="default"
           size="medium"
-          disabled={true}
         >
           引き返す
         </ExitButton>
 
         <ExitButton
-          onClick={handleOrder}
+          onClick={handleOrderClick}
           disabled={!selectedItem}
           variant="primary"
           size="large"

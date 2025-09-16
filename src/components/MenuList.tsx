@@ -69,9 +69,12 @@ const MenuList: React.FC<MenuListProps> = ({
 
   const getMenuAreaTypeName = (id: number): string => {
     switch (id) {
-      case 0: return '(正常)';
-      case 1: return '(ちらつき異変)';
-      default: return `(異変ID: ${id})`;
+      case 0:
+        return '(正常)';
+      case 1:
+        return '(ちらつき異変)';
+      default:
+        return `(異変ID: ${id})`;
     }
   };
 
@@ -93,7 +96,10 @@ const MenuList: React.FC<MenuListProps> = ({
     }
   };
 
-  const isCorrectButton = (buttonType: 'back' | 'order', anomalyId: number): boolean => {
+  const isCorrectButton = (
+    buttonType: 'back' | 'order',
+    anomalyId: number
+  ): boolean => {
     if (anomalyId === 0) {
       return buttonType === 'order'; // 正常時は「注文する」
     } else {
@@ -225,11 +231,7 @@ const MenuList: React.FC<MenuListProps> = ({
           alignItems: 'center',
         }}
       >
-        <ExitButton
-          onClick={handleBackClick}
-          variant="default"
-          size="medium"
-        >
+        <ExitButton onClick={handleBackClick} variant="default" size="medium">
           引き返す
         </ExitButton>
 

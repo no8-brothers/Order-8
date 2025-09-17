@@ -10,10 +10,14 @@ interface OrderPageProps {
   size?: 'small' | 'medium' | 'large';
   view: string;
   currentOrder: any;
+  currentOrderCounter: number;
   handleStartOrder: () => void;
   handleOrderCreate: (order: any) => void;
   handleBackToMenu: () => void;
   handleBackToPreviousExit: () => void;
+  handleMoveToNextCounter: () => void;
+  handleMoveToPreviousCounter: () => void;
+  handleForceReturnToZero: () => void;
 }
 
 const orderPage: React.FC<OrderPageProps> = ({
@@ -21,10 +25,14 @@ const orderPage: React.FC<OrderPageProps> = ({
   size = 'medium',
   view,
   currentOrder,
+  currentOrderCounter,
   handleStartOrder,
   handleOrderCreate,
   handleBackToMenu,
   handleBackToPreviousExit,
+  handleMoveToNextCounter,
+  handleMoveToPreviousCounter,
+  handleForceReturnToZero,
 }) => {
   return (
     <div>
@@ -42,6 +50,10 @@ const orderPage: React.FC<OrderPageProps> = ({
           <MenuList
             onOrderCreate={handleOrderCreate}
             onBackToPreviousExit={handleBackToPreviousExit}
+            currentOrderCounter={currentOrderCounter}
+            onMoveToNextCounter={handleMoveToNextCounter}
+            onMoveToPreviousCounter={handleMoveToPreviousCounter}
+            onForceReturnToZero={handleForceReturnToZero}
           />
         )}
 

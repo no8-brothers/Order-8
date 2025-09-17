@@ -17,7 +17,6 @@ function App(): React.JSX.Element {
   const handleStartOrder = () => {
     orderStorage.setCurrentOrderCounter(0);
     setCurrentOrderCounter(0);
-    console.log('注文開始: 0番注文口');
     setView('menu');
   };
 

@@ -116,7 +116,6 @@ const RotatedMenuArea: React.FC<RotatedMenuAreaProps> = ({
           );
         })}
       </div>
-
     </div>
   );
 };

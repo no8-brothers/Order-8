@@ -231,7 +231,12 @@ const MenuList: React.FC<MenuListProps> = ({
           alignItems: 'center',
         }}
       >
-        <ExitButton onClick={handleBackClick} variant="default" size="medium">
+        <ExitButton
+          onClick={handleBackClick}
+          variant="default"
+          size="medium"
+          disabled={currentOrderCounter === 0}
+        >
           引き返す
         </ExitButton>
 

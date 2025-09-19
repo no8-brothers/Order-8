@@ -27,33 +27,40 @@ const garbleTextByEncoding = (text: string): string => {
       return decoder.decode(utf8Bytes);
     } catch {
       // フォールバック: 手動で文字化けパターンを生成
-      return text.replace(/[あ-ん]/g, '縺�')
-                 .replace(/[ア-ン]/g, '繧�')
-                 .replace(/[カ-コ]/g, '繧ｫ')
-                 .replace(/[サ-ソ]/g, '繧ｵ')
-                 .replace(/[タ-ト]/g, '繧ｿ')
-                 .replace(/[ハ-ホ]/g, '繝�')
-                 .replace(/[マ-モ]/g, '繝�')
-                 .replace(/[ヤ-ヨ]/g, '繝､')
-                 .replace(/[ラ-ロ]/g, '繝�')
-                 .replace(/[ワ-ヲ]/g, '繝ｯ')
-                 .replace(/ー/g, '繝ｼ')
-                 .replace(/、/g, '縲�')
-                 .replace(/。/g, '縲�');
+      return text
+        .replace(/[あ-ん]/g, '縺�')
+        .replace(/[ア-ン]/g, '繧�')
+        .replace(/[カ-コ]/g, '繧ｫ')
+        .replace(/[サ-ソ]/g, '繧ｵ')
+        .replace(/[タ-ト]/g, '繧ｿ')
+        .replace(/[ハ-ホ]/g, '繝�')
+        .replace(/[マ-モ]/g, '繝�')
+        .replace(/[ヤ-ヨ]/g, '繝､')
+        .replace(/[ラ-ロ]/g, '繝�')
+        .replace(/[ワ-ヲ]/g, '繝ｯ')
+        .replace(/ー/g, '繝ｼ')
+        .replace(/、/g, '縲�')
+        .replace(/。/g, '縲�');
     }
   } catch {
     // より確実な文字化けパターン（ISO-2022-JPからUTF-8への変換エラー風）
-    return text.split('').map(char => {
-      const code = char.charCodeAt(0);
-      if (code >= 0x3041 && code <= 0x3096) { // ひらがな
-        return String.fromCharCode(0x7E00 + (code - 0x3041));
-      } else if (code >= 0x30A1 && code <= 0x30F6) { // カタカナ
-        return String.fromCharCode(0x7F00 + (code - 0x30A1));
-      } else if (code >= 0x4E00 && code <= 0x9FAF) { // 漢字
-        return '��';
-      }
-      return char;
-    }).join('');
+    return text
+      .split('')
+      .map((char) => {
+        const code = char.charCodeAt(0);
+        if (code >= 0x3041 && code <= 0x3096) {
+          // ひらがな
+          return String.fromCharCode(0x7e00 + (code - 0x3041));
+        } else if (code >= 0x30a1 && code <= 0x30f6) {
+          // カタカナ
+          return String.fromCharCode(0x7f00 + (code - 0x30a1));
+        } else if (code >= 0x4e00 && code <= 0x9faf) {
+          // 漢字
+          return '��';
+        }
+        return char;
+      })
+      .join('');
   }
 };
 

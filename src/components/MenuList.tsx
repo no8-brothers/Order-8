@@ -5,6 +5,7 @@ import ExitSign from './ExitSign';
 import MenuArea from './MenuArea';
 import FlashingMenuArea from './FlashingMenuArea';
 import AccountPromptMenuArea from './AccountPromptMenuArea';
+import RotatedMenuArea from './RotatedMenuArea';
 import { orderStorage } from '../utils/orderStorage';
 
 interface MenuListProps {
@@ -52,9 +53,9 @@ const MenuList: React.FC<MenuListProps> = ({
     if (currentOrderCounter === 0 || currentOrderCounter === 8) {
       anomalyId = 0; // 0番と8番は必ず正常
     } else {
-      // 現在: ID 0 (正常), ID 1 (ちらつき), ID 3 (アカウント登録ポップアップ) の3種類
+      // 現在: ID 0 (正常), ID 1 (ちらつき), ID 3 (アカウント登録ポップアップ)ID 5 (画面回転) の4種類
       // 将来的に異変が増えた場合、ここで利用可能なIDの数を動的に取得
-      const availableIds = [0, 1, 3]; // MenuArea, FlashingMenuArea, AccountPromptMenuArea
+      const availableIds = [0, 1, 3, 5]; // MenuArea, FlashingMenuArea, AccountPromptMenuArea
       anomalyId = availableIds[Math.floor(Math.random() * availableIds.length)];
     }
 
@@ -76,6 +77,8 @@ const MenuList: React.FC<MenuListProps> = ({
         return '(ちらつき異変)';
       case 3:
         return '(アカウント登録ポップアップ異変)';
+      case 5:
+        return '(画面回転異変)';
       default:
         return `(異変ID: ${id})`;
     }
@@ -100,6 +103,8 @@ const MenuList: React.FC<MenuListProps> = ({
         return <FlashingMenuArea {...commonProps} />;
       case 3:
         return <AccountPromptMenuArea {...accountPromptProps} />;
+      case 5:
+        return <RotatedMenuArea {...commonProps} />;
       default:
         // 未定義のIDの場合は正常なMenuAreaをフォールバック
         return <MenuArea {...commonProps} />;

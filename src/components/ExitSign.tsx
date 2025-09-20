@@ -3,9 +3,10 @@ import React from 'react';
 interface ExitSignProps {
   exitNumber: number;
   size?: 'small' | 'medium' | 'large';
+  misread?: boolean; // ★追加: 誤読フラグ
 }
 
-const ExitSign: React.FC<ExitSignProps> = ({ exitNumber, size = 'medium' }) => {
+const ExitSign: React.FC<ExitSignProps> = ({ exitNumber, size = 'medium', misread = false }) => {
   const getSizeStyles = () => {
     const sizes = {
       small: { padding: '8px 16px', fontSize: '0.9rem', letterSpacing: '1px' },
@@ -31,7 +32,7 @@ const ExitSign: React.FC<ExitSignProps> = ({ exitNumber, size = 'medium' }) => {
         ...getSizeStyles(),
       }}
     >
-      {exitNumber}番注文口
+      {exitNumber}番注文{misread ? 'ロ' : '口'}
     </div>
   );
 };

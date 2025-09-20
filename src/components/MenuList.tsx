@@ -8,6 +8,7 @@ import GarbledMenuArea from './GarbledMenuArea';
 import AccountPromptMenuArea from './AccountPromptMenuArea';
 import RotatedMenuArea from './RotatedMenuArea';
 import { orderStorage } from '../utils/orderStorage';
+import Misreading from './Misreading';
 
 interface MenuListProps {
   onOrderCreate: (order: any) => void;
@@ -54,9 +55,9 @@ const MenuList: React.FC<MenuListProps> = ({
     if (currentOrderCounter === 0 || currentOrderCounter === 8) {
       anomalyId = 0; // 0番と8番は必ず正常
     } else {
-      // 現在: ID 0 (正常), ID 1 (ちらつき), ID 2 (文字化け), ID 3 (アカウント登録ポップアップ), ID 5 (画面回転) の5種類
+      // 現在: ID 0 (正常), ID 1 (ちらつき), ID 2 (文字化け), ID 3 (アカウント登録ポップアップ),ID 4 (「くち」が「ろ」に) , ID 5 (画面回転) の6種類
       // 将来的に異変が増えた場合、ここで利用可能なIDの数を動的に取得
-      const availableIds = [0, 1, 2, 3, 5]; // MenuArea, FlashingMenuArea, AccountPromptMenuArea
+      const availableIds = [0, 1, 2, 3, 4, 5]; // MenuArea, FlashingMenuArea, AccountPromptMenuArea, Misreading, RotatedMenuArea
       anomalyId = availableIds[Math.floor(Math.random() * availableIds.length)];
     }
 
@@ -80,6 +81,8 @@ const MenuList: React.FC<MenuListProps> = ({
         return '(文字化け異変)';
       case 3:
         return '(アカウント登録ポップアップ異変)';
+      case 4:
+        return '(「くち」が「ろ」に異変)';
       case 5:
         return '(画面回転異変)';
       default:
@@ -108,6 +111,8 @@ const MenuList: React.FC<MenuListProps> = ({
         return <GarbledMenuArea {...commonProps} />;
       case 3:
         return <AccountPromptMenuArea {...accountPromptProps} />;
+      case 4:
+        return <Misreading {...commonProps} />;
       case 5:
         return <RotatedMenuArea {...commonProps} />;
       default:
@@ -234,9 +239,9 @@ const MenuList: React.FC<MenuListProps> = ({
           justifyContent: 'flex-start',
         }}
       >
-        <ExitSign exitNumber={currentOrderCounter} size="medium" />
+        <ExitSign exitNumber={currentOrderCounter} size="medium" misread={currentMenuAreaId === 4} // ★異変ID=4なら「注文ロ」
+        />
       </div>
-
       {/* メニューエリア */}
       {renderMenuArea()}
 

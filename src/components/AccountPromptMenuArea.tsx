@@ -12,6 +12,7 @@ interface AccountPromptMenuAreaProps {
   selectedItem: MenuItem | null;
   onItemSelect: (item: MenuItem) => void;
   onForceReturnToZero: () => void;
+  currentOrderCounter?: number;
 }
 
 const AccountPromptMenuArea: React.FC<AccountPromptMenuAreaProps> = ({
@@ -19,19 +20,25 @@ const AccountPromptMenuArea: React.FC<AccountPromptMenuAreaProps> = ({
   selectedItem,
   onItemSelect,
   onForceReturnToZero,
+  currentOrderCounter,
 }) => {
   const [showPopup, setShowPopup] = useState(false);
   const [isRegistering, setIsRegistering] = useState(false);
   const [isCompleted, setIsCompleted] = useState(false);
 
   useEffect(() => {
+    // コンポーネントマウント時および注文口変更時に状態をリセット
+    setShowPopup(false);
+    setIsRegistering(false);
+    setIsCompleted(false);
+
     // コンポーネントマウント後、少し遅延してポップアップを表示
     const timer = setTimeout(() => {
       setShowPopup(true);
     }, 800);
 
     return () => clearTimeout(timer);
-  }, []);
+  }, [currentOrderCounter]);
 
   const handleRegisterClick = () => {
     setIsRegistering(true);

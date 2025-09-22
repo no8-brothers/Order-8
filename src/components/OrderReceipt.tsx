@@ -239,25 +239,6 @@ const OrderReceipt: React.FC<OrderReceiptProps> = ({ order, onBackToMenu }) => {
           </div>
         </div>
 
-        <button
-          onClick={onBackToMenu}
-          style={{
-            backgroundColor: 'var(--bg-darker)',
-            color: 'var(--accent-yellow)',
-            border: '2px solid var(--accent-yellow)',
-            padding: '15px 30px',
-            borderRadius: '4px',
-            cursor: 'pointer',
-            fontSize: '1.1rem',
-            fontFamily: 'inherit',
-            fontWeight: 'bold',
-            letterSpacing: '1px',
-            marginTop: '20px',
-            transition: 'all 0.3s ease',
-          }}
-        >
-          ［ 新しい注文をする ］
-        </button>
       </div>
     </div>
   );

@@ -70,7 +70,9 @@ const OrderPage: React.FC<OrderPageProps> = ({
           transition: 'opacity 300ms ease-in-out',
         }}
       >
-        {displayContent.view === 'title' && <TitleScreen onStartOrder={handleStartOrder} />}
+        {displayContent.view === 'title' && (
+          <TitleScreen onStartOrder={handleStartOrder} />
+        )}
 
         {displayContent.view === 'menu' && (
           <MenuList
@@ -84,7 +86,10 @@ const OrderPage: React.FC<OrderPageProps> = ({
         )}
 
         {displayContent.view === 'receipt' && (
-          <OrderReceipt order={displayContent.currentOrder} onBackToMenu={handleBackToMenu} />
+          <OrderReceipt
+            order={displayContent.currentOrder}
+            onBackToMenu={handleBackToMenu}
+          />
         )}
       </main>
 

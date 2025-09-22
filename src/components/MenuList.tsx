@@ -7,6 +7,7 @@ import FlashingMenuArea from './FlashingMenuArea';
 import GarbledMenuArea from './GarbledMenuArea';
 import AccountPromptMenuArea from './AccountPromptMenuArea';
 import RotatedMenuArea from './RotatedMenuArea';
+import GuidePopup from './GuidePopup';
 import { orderStorage } from '../utils/orderStorage';
 
 interface MenuListProps {
@@ -37,6 +38,8 @@ const MenuList: React.FC<MenuListProps> = ({
   const [error, setError] = useState<string | null>(null);
   const [selectedItem, setSelectedItem] = useState<MenuItem | null>(null);
   const [currentMenuAreaId, setCurrentMenuAreaId] = useState<number>(0);
+  const [showGuidePopup, setShowGuidePopup] = useState<boolean>(false);
+  const [isGuideExpanded, setIsGuideExpanded] = useState<boolean>(false);
 
   useEffect(() => {
     setSelectedItem(null);
@@ -65,6 +68,17 @@ const MenuList: React.FC<MenuListProps> = ({
     console.log(
       `${currentOrderCounter}番注文口: MenuArea ID ${anomalyId} ${getMenuAreaTypeName(anomalyId)}`
     );
+
+    // ガイドポップアップを表示
+    setShowGuidePopup(true);
+
+    // 0番注文口の場合のみ自動で拡大表示
+    if (currentOrderCounter === 0) {
+      setIsGuideExpanded(true);
+    } else if (currentOrderCounter === 1) {
+      // 1番注文口では初回のみ縮小状態にリセット
+      setIsGuideExpanded(false);
+    }
 
     // 注文口移動時に画面を最上部にスクロール
     window.scrollTo(0, 0);
@@ -232,6 +246,8 @@ const MenuList: React.FC<MenuListProps> = ({
           marginBottom: '20px',
           display: 'flex',
           justifyContent: 'flex-start',
+          alignItems: 'flex-start',
+          position: 'relative',
         }}
       >
         <ExitSign exitNumber={currentOrderCounter} size="medium" />
@@ -269,6 +285,14 @@ const MenuList: React.FC<MenuListProps> = ({
           注文する
         </ExitButton>
       </div>
+
+      {/* ガイドポップアップ */}
+      <GuidePopup
+        isVisible={showGuidePopup}
+        isExpanded={isGuideExpanded}
+        onClose={() => setIsGuideExpanded(false)}
+        onToggle={() => setIsGuideExpanded(true)}
+      />
     </div>
   );
 };

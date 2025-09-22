@@ -8,13 +8,21 @@ interface ExitSignProps {
 const ExitSign: React.FC<ExitSignProps> = ({ exitNumber, size = 'medium' }) => {
   const getSizeStyles = () => {
     const sizes = {
-      small: { padding: '8px 16px', fontSize: '0.9rem', letterSpacing: '1px' },
+      small: {
+        padding: '8px 16px',
+        fontSize: 'clamp(0.7rem, 2.5vw, 0.9rem)',
+        letterSpacing: '1px',
+      },
       medium: {
         padding: '16px 32px',
-        fontSize: '1.4rem',
+        fontSize: 'clamp(1rem, 4vw, 1.4rem)',
         letterSpacing: '2px',
       },
-      large: { padding: '20px 40px', fontSize: '1.8rem', letterSpacing: '3px' },
+      large: {
+        padding: '20px 40px',
+        fontSize: 'clamp(1.2rem, 5vw, 1.8rem)',
+        letterSpacing: '3px',
+      },
     };
     return sizes[size];
   };
@@ -28,6 +36,7 @@ const ExitSign: React.FC<ExitSignProps> = ({ exitNumber, size = 'medium' }) => {
         fontWeight: 'bold',
         border: '3px solid var(--border-gray)',
         display: 'inline-block',
+        whiteSpace: 'nowrap',
         ...getSizeStyles(),
       }}
     >

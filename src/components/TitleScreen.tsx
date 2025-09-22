@@ -65,12 +65,13 @@ function TitleScreen({ onStartOrder }: TitleScreenProps): React.JSX.Element {
             color: 'var(--bg-darker)',
             padding: '20px 40px',
             borderRadius: '6px',
-            fontSize: '1.8rem',
+            fontSize: 'clamp(1.6rem, 6.5vw, 2.4rem)',
             fontWeight: 'bold',
             border: '4px solid var(--border-gray)',
-            letterSpacing: '3px',
+            letterSpacing: 'clamp(1px, 0.5vw, 3px)',
             marginBottom: '20px',
             display: 'inline-block',
+            whiteSpace: 'nowrap',
           }}
         >
           8番注文口
@@ -78,29 +79,15 @@ function TitleScreen({ onStartOrder }: TitleScreenProps): React.JSX.Element {
 
         <h1
           style={{
-            fontSize: '1.5rem',
+            fontSize: 'clamp(1.2rem, 5vw, 2.2rem)',
             color: 'var(--text-light)',
             marginBottom: '10px',
             fontWeight: 'bold',
-            letterSpacing: '2px',
+            letterSpacing: 'clamp(1px, 0.5vw, 2px)',
           }}
         >
           かき氷注文システム
         </h1>
-
-        <div
-          style={{
-            fontSize: '0.9rem',
-            color: 'var(--text-dim)',
-            marginBottom: '30px',
-            padding: '10px',
-            border: '1px solid var(--border-gray)',
-            borderRadius: '4px',
-            backgroundColor: 'var(--bg-darker)',
-          }}
-        >
-          技育祭特別企画 - ラムダ技術部コラボハッカソン
-        </div>
 
         <button
           onClick={handleStartClick}
@@ -131,9 +118,9 @@ function TitleScreen({ onStartOrder }: TitleScreenProps): React.JSX.Element {
             (e.target as HTMLElement).style.color = 'var(--accent-yellow)';
           }}
         >
-          タップして
+          タップで
           <br />
-          注文を開始
+          注文開始
         </button>
       </div>
 

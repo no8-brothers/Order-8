@@ -12,16 +12,6 @@ function Header(): React.JSX.Element {
         position: 'relative',
       }}
     >
-      <div
-        style={{
-          fontSize: '0.8rem',
-          color: 'var(--text-dim)',
-          marginBottom: '5px',
-          letterSpacing: '1px',
-        }}
-      >
-        UNDERGROUND KAKIGORI SYSTEM
-      </div>
       <h1
         style={{
           margin: '0',

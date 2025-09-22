@@ -110,19 +110,27 @@ const OrderReceipt: React.FC<OrderReceiptProps> = ({ order, onBackToMenu }) => {
         {/* 改札機風ヘッダー */}
         <div
           style={{
-            backgroundColor: 'var(--accent-yellow)',
-            color: 'var(--bg-darker)',
-            padding: '10px 20px',
-            borderRadius: '4px',
-            fontSize: '1.1rem',
-            fontWeight: 'bold',
-            marginBottom: '30px',
-            display: 'inline-block',
-            border: '2px solid var(--border-gray)',
-            letterSpacing: '2px',
+            marginBottom: '40px',
+            margin: '0 -20px 40px -20px',
+            textAlign: 'center',
           }}
         >
-          ■ ORDER COMPLETE ■
+          <div
+            style={{
+              backgroundColor: 'var(--accent-yellow)',
+              color: 'var(--bg-darker)',
+              padding: '10px 15px',
+              borderRadius: '4px',
+              fontSize: 'clamp(0.9rem, 3vw, 1.1rem)',
+              fontWeight: 'bold',
+              display: 'inline-block',
+              border: '2px solid var(--border-gray)',
+              letterSpacing: 'clamp(1px, 1vw, 2px)',
+              whiteSpace: 'nowrap',
+            }}
+          >
+            ■ ORDER COMPLETE ■
+          </div>
         </div>
 
         {/* 大きな注文番号表示 */}
@@ -238,26 +246,6 @@ const OrderReceipt: React.FC<OrderReceiptProps> = ({ order, onBackToMenu }) => {
             STATUS: {order.status.toUpperCase()}
           </div>
         </div>
-
-        <button
-          onClick={onBackToMenu}
-          style={{
-            backgroundColor: 'var(--bg-darker)',
-            color: 'var(--accent-yellow)',
-            border: '2px solid var(--accent-yellow)',
-            padding: '15px 30px',
-            borderRadius: '4px',
-            cursor: 'pointer',
-            fontSize: '1.1rem',
-            fontFamily: 'inherit',
-            fontWeight: 'bold',
-            letterSpacing: '1px',
-            marginTop: '20px',
-            transition: 'all 0.3s ease',
-          }}
-        >
-          ［ 新しい注文をする ］
-        </button>
       </div>
     </div>
   );

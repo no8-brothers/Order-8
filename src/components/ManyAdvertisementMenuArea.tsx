@@ -47,24 +47,24 @@ const ManyAdvertisementMenuArea: React.FC<ManyAdvertisementMenuAreaProps> = ({
     'moving',
   ];
 
-  const generateRandomPosition = useCallback(() => {
+  const generateRandomPosition = () => {
     const maxWidth = Math.min(400, Math.max(280, window.innerWidth * 0.3));
     const maxHeight = Math.min(320, Math.max(200, window.innerHeight * 0.25));
     return {
       x: Math.random() * Math.max(100, window.innerWidth - maxWidth),
       y: Math.random() * Math.max(100, window.innerHeight - maxHeight),
     };
-  }, []);
+  };
 
-  const createNewAd = useCallback((): AdInstance => {
+  const createNewAd = (): AdInstance => {
     const randomType = adTypes[Math.floor(Math.random() * adTypes.length)];
     return {
       id: `ad-${Date.now()}-${Math.random()}`,
       type: randomType,
       position: generateRandomPosition(),
-      zIndex: nextZIndex,
+      zIndex: Date.now(),
     };
-  }, [adTypes, generateRandomPosition, nextZIndex]);
+  };
 
   // 注文口が変更されたときに広告をリセット
   useEffect(() => {
@@ -107,7 +107,7 @@ const ManyAdvertisementMenuArea: React.FC<ManyAdvertisementMenuAreaProps> = ({
       clearTimeout(initialTimeout);
       if (intervalRef.current) clearInterval(intervalRef.current);
     };
-  }, [currentOrderCounter, adTypes, createNewAd, generateRandomPosition]); // currentOrderCounterが変更されたときに実行
+  }, [currentOrderCounter]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const handleCloseAd = (id: string) => {
     setAds((prev) => prev.filter((ad) => ad.id !== id));

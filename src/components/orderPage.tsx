@@ -56,7 +56,7 @@ const OrderPage: React.FC<OrderPageProps> = ({
       // For view changes without counter changes, update immediately
       setDisplayContent({ view, currentOrder, currentOrderCounter });
     }
-  }, [view, currentOrder, currentOrderCounter, displayContent]);
+  }, [view, currentOrder, currentOrderCounter]);
 
   return (
     <div>

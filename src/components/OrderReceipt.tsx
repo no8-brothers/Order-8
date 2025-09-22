@@ -286,7 +286,6 @@ Thank you for your order!
             STATUS: {order.status.toUpperCase()}
           </div>
         </div>
-
       </div>
     </div>
   );

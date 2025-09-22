@@ -5,6 +5,7 @@ interface GrowingAdPopupProps {
   position: { x: number; y: number };
   zIndex: number;
   onClose: () => void;
+  onForceReturnToZero?: () => void;
 }
 
 const GrowingAdPopup: React.FC<GrowingAdPopupProps> = ({
@@ -12,6 +13,7 @@ const GrowingAdPopup: React.FC<GrowingAdPopupProps> = ({
   position,
   zIndex,
   onClose,
+  onForceReturnToZero,
 }) => {
   const [currentPosition, setCurrentPosition] = useState(position);
   const [scale, setScale] = useState(1);
@@ -19,8 +21,8 @@ const GrowingAdPopup: React.FC<GrowingAdPopupProps> = ({
 
   useEffect(() => {
     const growInterval = setInterval(() => {
-      setScale(prev => Math.min(prev + 0.02, 3));
-      setOpacity(prev => Math.max(prev - 0.005, 0.7));
+      setScale((prev) => Math.min(prev + 0.02, 3));
+      setOpacity((prev) => Math.max(prev - 0.005, 0.7));
     }, 100);
 
     return () => clearInterval(growInterval);
@@ -31,16 +33,28 @@ const GrowingAdPopup: React.FC<GrowingAdPopupProps> = ({
     if (Math.random() < 0.08) {
       onClose();
     } else {
-      setScale(prev => prev + 0.2);
+      setScale((prev) => prev + 0.2);
       alert('閉じることはできません！広告を見続けてください！');
     }
   };
 
   const handleClick = () => {
-    setScale(prev => prev + 0.3);
+    setScale((prev) => prev + 0.3);
     setCurrentPosition({
-      x: Math.max(0, Math.min(window.innerWidth - 200 * scale, Math.random() * window.innerWidth)),
-      y: Math.max(0, Math.min(window.innerHeight - 180 * scale, Math.random() * window.innerHeight)),
+      x: Math.max(
+        0,
+        Math.min(
+          window.innerWidth - 200 * scale,
+          Math.random() * window.innerWidth
+        )
+      ),
+      y: Math.max(
+        0,
+        Math.min(
+          window.innerHeight - 180 * scale,
+          Math.random() * window.innerHeight
+        )
+      ),
     });
     alert('クリックするたびに広告が大きくなります！');
   };
@@ -74,9 +88,11 @@ const GrowingAdPopup: React.FC<GrowingAdPopupProps> = ({
           height: `${180 * scale}px`,
           borderRadius: '15px',
           padding: `${15 * scale}px`,
-          background: 'linear-gradient(45deg, #ff6b35, #f7931e, #ffcc02, #8bc34a)',
+          background:
+            'linear-gradient(45deg, #ff6b35, #f7931e, #ffcc02, #8bc34a)',
           border: '4px solid',
-          animation: 'rainbow-border 2s infinite, spin-slow 10s infinite linear',
+          animation:
+            'rainbow-border 2s infinite, spin-slow 10s infinite linear',
           boxShadow: `0 0 ${30 * scale}px rgba(255, 107, 53, 0.8)`,
           cursor: 'pointer',
           userSelect: 'none',
@@ -147,8 +163,10 @@ const GrowingAdPopup: React.FC<GrowingAdPopupProps> = ({
               textShadow: '1px 1px 2px rgba(0,0,0,0.7)',
             }}
           >
-            今だけ99%OFF！<br />
-            このチャンスを逃すな！<br />
+            今だけ99%OFF！
+            <br />
+            このチャンスを逃すな！
+            <br />
             クリックで詳細確認！
           </p>
 
@@ -166,8 +184,10 @@ const GrowingAdPopup: React.FC<GrowingAdPopupProps> = ({
             }}
             onClick={(e) => {
               e.stopPropagation();
-              setScale(prev => prev + 0.5);
-              alert('購入ページに移動中...（嘘です）');
+              setScale((prev) => prev + 0.5);
+              if (onForceReturnToZero) {
+                onForceReturnToZero();
+              }
             }}
           >
             🛒 今すぐ購入！

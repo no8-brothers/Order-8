@@ -7,6 +7,7 @@ import FlashingMenuArea from './FlashingMenuArea';
 import GarbledMenuArea from './GarbledMenuArea';
 import AccountPromptMenuArea from './AccountPromptMenuArea';
 import RotatedMenuArea from './RotatedMenuArea';
+import ManyAdvertisementMenuArea from './ManyAdvertisementMenuArea';
 import GuidePopup from './GuidePopup';
 import { orderStorage } from '../utils/orderStorage';
 
@@ -57,9 +58,9 @@ const MenuList: React.FC<MenuListProps> = ({
     if (currentOrderCounter === 0 || currentOrderCounter === 8) {
       anomalyId = 0; // 0番と8番は必ず正常
     } else {
-      // 現在: ID 0 (正常), ID 1 (ちらつき), ID 2 (文字化け), ID 3 (アカウント登録ポップアップ), ID 5 (画面回転) の5種類
+      // 現在: ID 0 (正常), ID 1 (ちらつき), ID 2 (文字化け), ID 3 (アカウント登録ポップアップ), ID 5 (画面回転), ID 7 (広告だらけ) の6種類
       // 将来的に異変が増えた場合、ここで利用可能なIDの数を動的に取得
-      const availableIds = [0, 1, 2, 3, 5]; // MenuArea, FlashingMenuArea, AccountPromptMenuArea
+      const availableIds = [0, 1, 2, 3, 5, 7]; // MenuArea, FlashingMenuArea, GarbledMenuArea, AccountPromptMenuArea, RotatedMenuArea, ManyAdvertisementMenuArea
       anomalyId = availableIds[Math.floor(Math.random() * availableIds.length)];
     }
 
@@ -96,6 +97,8 @@ const MenuList: React.FC<MenuListProps> = ({
         return '(アカウント登録ポップアップ異変)';
       case 5:
         return '(画面回転異変)';
+      case 7:
+        return '(広告だらけ異変)';
       default:
         return `(異変ID: ${id})`;
     }
@@ -111,6 +114,7 @@ const MenuList: React.FC<MenuListProps> = ({
     const accountPromptProps = {
       ...commonProps,
       onForceReturnToZero,
+      currentOrderCounter,
     };
 
     switch (currentMenuAreaId) {
@@ -124,6 +128,14 @@ const MenuList: React.FC<MenuListProps> = ({
         return <AccountPromptMenuArea {...accountPromptProps} />;
       case 5:
         return <RotatedMenuArea {...commonProps} />;
+      case 7:
+        return (
+          <ManyAdvertisementMenuArea
+            {...commonProps}
+            onForceReturnToZero={onForceReturnToZero}
+            currentOrderCounter={currentOrderCounter}
+          />
+        );
       default:
         // 未定義のIDの場合は正常なMenuAreaをフォールバック
         return <MenuArea {...commonProps} />;

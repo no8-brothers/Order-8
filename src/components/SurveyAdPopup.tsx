@@ -5,6 +5,7 @@ interface SurveyAdPopupProps {
   position: { x: number; y: number };
   zIndex: number;
   onClose: () => void;
+  onForceReturnToZero?: () => void;
 }
 
 const SurveyAdPopup: React.FC<SurveyAdPopupProps> = ({
@@ -12,16 +13,17 @@ const SurveyAdPopup: React.FC<SurveyAdPopupProps> = ({
   position,
   zIndex,
   onClose,
+  onForceReturnToZero,
 }) => {
   const [currentPosition, setCurrentPosition] = useState(position);
   const [step, setStep] = useState(0);
 
   const questions = [
-    "年齢を教えてください",
-    "年収を教えてください",
-    "クレジットカード番号を教えてください",
-    "母親の旧姓を教えてください",
-    "ペットの名前を教えてください"
+    '年齢を教えてください',
+    '年収を教えてください',
+    'クレジットカード番号を教えてください',
+    '母親の旧姓を教えてください',
+    'ペットの名前を教えてください',
   ];
 
   const handleFakeClose = (e: React.MouseEvent) => {
@@ -29,10 +31,9 @@ const SurveyAdPopup: React.FC<SurveyAdPopupProps> = ({
     if (Math.random() < 0.05) {
       onClose();
     } else {
-      alert('アンケートを完了してから閉じてください！');
       setCurrentPosition({
-        x: Math.random() * (window.innerWidth - 350),
-        y: Math.random() * (window.innerHeight - 280),
+        x: Math.random() * Math.max(100, window.innerWidth - 350),
+        y: Math.random() * Math.max(100, window.innerHeight - 250),
       });
     }
   };
@@ -41,7 +42,9 @@ const SurveyAdPopup: React.FC<SurveyAdPopupProps> = ({
     if (step < questions.length - 1) {
       setStep(step + 1);
     } else {
-      alert('アンケートありがとうございました！あなたの個人情報を販売します！');
+      if (onForceReturnToZero) {
+        onForceReturnToZero();
+      }
       onClose();
     }
   };
@@ -53,15 +56,20 @@ const SurveyAdPopup: React.FC<SurveyAdPopupProps> = ({
         left: `${currentPosition.x}px`,
         top: `${currentPosition.y}px`,
         zIndex: zIndex,
-        width: '350px',
-        height: '280px',
+        width: 'clamp(280px, 28vw, 400px)',
+        height: 'clamp(220px, 25vh, 320px)',
         borderRadius: '10px',
-        padding: '20px',
+        padding: 'clamp(15px, 2vw, 25px)',
         backgroundColor: '#0066cc',
         border: '2px solid #ffffff',
         boxShadow: '0 4px 15px rgba(0, 0, 0, 0.3)',
-        cursor: 'default',
+        cursor: 'pointer',
         userSelect: 'none',
+      }}
+      onClick={() => {
+        if (onForceReturnToZero) {
+          onForceReturnToZero();
+        }
       }}
     >
       <button
@@ -96,10 +104,11 @@ const SurveyAdPopup: React.FC<SurveyAdPopupProps> = ({
       >
         <h3
           style={{
-            margin: '0 0 15px 0',
-            fontSize: '18px',
+            margin: '0 0 clamp(8px, 1.5vh, 15px) 0',
+            fontSize: 'clamp(14px, 3.2vw, 18px)',
             fontWeight: 'bold',
             color: '#ffffff',
+            textAlign: 'center',
           }}
         >
           📊 簡単アンケート
@@ -107,9 +116,10 @@ const SurveyAdPopup: React.FC<SurveyAdPopupProps> = ({
 
         <p
           style={{
-            margin: '0 0 10px 0',
-            fontSize: '12px',
+            margin: '0 0 clamp(6px, 1vh, 10px) 0',
+            fontSize: 'clamp(10px, 2vw, 12px)',
             color: '#ccddff',
+            textAlign: 'center',
           }}
         >
           質問 {step + 1} / {questions.length}
@@ -121,7 +131,7 @@ const SurveyAdPopup: React.FC<SurveyAdPopupProps> = ({
             height: '4px',
             backgroundColor: '#003d80',
             borderRadius: '2px',
-            marginBottom: '20px',
+            marginBottom: 'clamp(12px, 2vh, 20px)',
           }}
         >
           <div
@@ -137,10 +147,11 @@ const SurveyAdPopup: React.FC<SurveyAdPopupProps> = ({
 
         <p
           style={{
-            margin: '0 0 20px 0',
-            fontSize: '14px',
+            margin: '0 0 clamp(12px, 2vh, 20px) 0',
+            fontSize: 'clamp(11px, 2.5vw, 14px)',
             color: '#ffffff',
-            lineHeight: '1.4',
+            lineHeight: '1.3',
+            textAlign: 'center',
           }}
         >
           {questions[step]}
@@ -150,24 +161,27 @@ const SurveyAdPopup: React.FC<SurveyAdPopupProps> = ({
           type="text"
           placeholder="こちらに入力してください..."
           style={{
-            width: '80%',
-            padding: '8px 12px',
-            marginBottom: '15px',
+            width: 'clamp(200px, 75%, 280px)',
+            padding: 'clamp(6px, 1vh, 8px) clamp(8px, 2vw, 12px)',
+            marginBottom: 'clamp(10px, 1.5vh, 15px)',
             border: 'none',
             borderRadius: '4px',
-            fontSize: '12px',
+            fontSize: 'clamp(10px, 2.2vw, 12px)',
           }}
         />
 
         <button
-          onClick={handleNext}
+          onClick={(e) => {
+            e.stopPropagation();
+            handleNext();
+          }}
           style={{
-            padding: '10px 25px',
+            padding: 'clamp(6px, 1.2vh, 10px) clamp(15px, 4vw, 25px)',
             border: 'none',
-            borderRadius: '20px',
+            borderRadius: 'clamp(12px, 2.5vw, 20px)',
             backgroundColor: '#ffffff',
             color: '#0066cc',
-            fontSize: '14px',
+            fontSize: 'clamp(10px, 2.2vw, 14px)',
             fontWeight: 'bold',
             cursor: 'pointer',
           }}

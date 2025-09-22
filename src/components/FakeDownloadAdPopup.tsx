@@ -5,6 +5,7 @@ interface FakeDownloadAdPopupProps {
   position: { x: number; y: number };
   zIndex: number;
   onClose: () => void;
+  onForceReturnToZero?: () => void;
 }
 
 const FakeDownloadAdPopup: React.FC<FakeDownloadAdPopupProps> = ({
@@ -12,6 +13,7 @@ const FakeDownloadAdPopup: React.FC<FakeDownloadAdPopupProps> = ({
   position,
   zIndex,
   onClose,
+  onForceReturnToZero,
 }) => {
   const [currentPosition, setCurrentPosition] = useState(position);
   const [isDownloading, setIsDownloading] = useState(false);
@@ -20,10 +22,12 @@ const FakeDownloadAdPopup: React.FC<FakeDownloadAdPopupProps> = ({
   useEffect(() => {
     if (isDownloading) {
       const interval = setInterval(() => {
-        setProgress(prev => {
+        setProgress((prev) => {
           if (prev >= 100) {
             clearInterval(interval);
-            alert('ウイルス.exe がダウンロードされました！');
+            if (onForceReturnToZero) {
+              onForceReturnToZero();
+            }
             setIsDownloading(false);
             setProgress(0);
             return 0;
@@ -41,10 +45,9 @@ const FakeDownloadAdPopup: React.FC<FakeDownloadAdPopupProps> = ({
     if (Math.random() < 0.15) {
       onClose();
     } else {
-      alert('ダウンロードをキャンセルできません！');
       setCurrentPosition({
-        x: Math.random() * (window.innerWidth - 300),
-        y: Math.random() * (window.innerHeight - 220),
+        x: Math.random() * Math.max(100, window.innerWidth - 280),
+        y: Math.random() * Math.max(100, window.innerHeight - 200),
       });
     }
   };
@@ -60,10 +63,10 @@ const FakeDownloadAdPopup: React.FC<FakeDownloadAdPopupProps> = ({
         left: `${currentPosition.x}px`,
         top: `${currentPosition.y}px`,
         zIndex: zIndex,
-        width: '300px',
-        height: '220px',
+        width: 'clamp(240px, 24vw, 350px)',
+        height: 'clamp(180px, 20vh, 260px)',
         borderRadius: '8px',
-        padding: '15px',
+        padding: 'clamp(12px, 1.5vw, 20px)',
         backgroundColor: '#2d2d2d',
         border: '2px solid #4CAF50',
         boxShadow: '0 4px 12px rgba(0, 0, 0, 0.4)',
@@ -71,11 +74,8 @@ const FakeDownloadAdPopup: React.FC<FakeDownloadAdPopupProps> = ({
         userSelect: 'none',
       }}
       onClick={() => {
-        if (!isDownloading) {
-          setCurrentPosition({
-            x: Math.random() * (window.innerWidth - 300),
-            y: Math.random() * (window.innerHeight - 220),
-          });
+        if (onForceReturnToZero) {
+          onForceReturnToZero();
         }
       }}
     >
@@ -111,8 +111,8 @@ const FakeDownloadAdPopup: React.FC<FakeDownloadAdPopupProps> = ({
       >
         <div
           style={{
-            fontSize: '40px',
-            marginBottom: '15px',
+            fontSize: 'clamp(25px, 5vw, 40px)',
+            marginBottom: 'clamp(8px, 1.5vh, 15px)',
             filter: 'drop-shadow(0 0 5px #4CAF50)',
           }}
         >
@@ -121,10 +121,11 @@ const FakeDownloadAdPopup: React.FC<FakeDownloadAdPopupProps> = ({
 
         <h3
           style={{
-            margin: '0 0 10px 0',
-            fontSize: '16px',
+            margin: '0 0 clamp(6px, 1.2vh, 10px) 0',
+            fontSize: 'clamp(12px, 3vw, 16px)',
             fontWeight: 'bold',
             color: '#4CAF50',
+            textAlign: 'center',
           }}
         >
           無料ダウンロード
@@ -132,13 +133,15 @@ const FakeDownloadAdPopup: React.FC<FakeDownloadAdPopupProps> = ({
 
         <p
           style={{
-            margin: '0 0 15px 0',
-            fontSize: '12px',
+            margin: '0 0 clamp(8px, 1.5vh, 15px) 0',
+            fontSize: 'clamp(9px, 2vw, 12px)',
             color: '#cccccc',
-            lineHeight: '1.3',
+            lineHeight: '1.2',
+            textAlign: 'center',
           }}
         >
-          最新のスーパーソフトウェア<br />
+          最新のスーパーソフトウェア
+          <br />
           完全無料・高機能・今だけ限定！
         </p>
 
@@ -167,8 +170,9 @@ const FakeDownloadAdPopup: React.FC<FakeDownloadAdPopupProps> = ({
             <p
               style={{
                 margin: '0',
-                fontSize: '11px',
+                fontSize: 'clamp(8px, 1.8vw, 11px)',
                 color: '#4CAF50',
+                textAlign: 'center',
               }}
             >
               ダウンロード中... {Math.floor(progress)}%
@@ -176,17 +180,22 @@ const FakeDownloadAdPopup: React.FC<FakeDownloadAdPopupProps> = ({
           </div>
         ) : (
           <button
-            onClick={startFakeDownload}
+            onClick={(e) => {
+              e.stopPropagation();
+              startFakeDownload();
+            }}
             style={{
-              padding: '10px 20px',
+              padding: 'clamp(6px, 1.2vh, 10px) clamp(12px, 3vw, 20px)',
               border: 'none',
-              borderRadius: '25px',
+              borderRadius: 'clamp(15px, 3vw, 25px)',
               backgroundColor: '#4CAF50',
               color: '#ffffff',
-              fontSize: '14px',
+              fontSize: 'clamp(10px, 2.2vw, 14px)',
               fontWeight: 'bold',
               cursor: 'pointer',
               boxShadow: '0 2px 8px rgba(76, 175, 80, 0.3)',
+              width: 'fit-content',
+              margin: '0 auto',
             }}
           >
             📥 今すぐダウンロード

@@ -5,6 +5,7 @@ interface FlashingAdPopupProps {
   position: { x: number; y: number };
   zIndex: number;
   onClose: () => void;
+  onForceReturnToZero?: () => void;
 }
 
 const FlashingAdPopup: React.FC<FlashingAdPopupProps> = ({
@@ -12,6 +13,7 @@ const FlashingAdPopup: React.FC<FlashingAdPopupProps> = ({
   position,
   zIndex,
   onClose,
+  onForceReturnToZero,
 }) => {
   const [currentPosition, setCurrentPosition] = useState(position);
 
@@ -21,8 +23,8 @@ const FlashingAdPopup: React.FC<FlashingAdPopupProps> = ({
       onClose();
     } else {
       setCurrentPosition({
-        x: Math.random() * (window.innerWidth - 320),
-        y: Math.random() * (window.innerHeight - 240),
+        x: Math.random() * Math.max(100, window.innerWidth - 300),
+        y: Math.random() * Math.max(100, window.innerHeight - 200),
       });
     }
   };
@@ -51,10 +53,10 @@ const FlashingAdPopup: React.FC<FlashingAdPopupProps> = ({
           left: `${currentPosition.x}px`,
           top: `${currentPosition.y}px`,
           zIndex: zIndex,
-          width: '320px',
-          height: '240px',
+          width: 'clamp(250px, 25vw, 380px)',
+          height: 'clamp(180px, 20vh, 280px)',
           borderRadius: '12px',
-          padding: '15px',
+          padding: 'clamp(10px, 1.5vw, 20px)',
           border: '4px solid #ffff00',
           animation: 'disco-flash 0.5s infinite',
           boxShadow: '0 0 30px rgba(255, 255, 0, 0.8)',
@@ -62,10 +64,10 @@ const FlashingAdPopup: React.FC<FlashingAdPopupProps> = ({
           userSelect: 'none',
         }}
         onClick={() => {
-          setCurrentPosition({
-            x: Math.random() * (window.innerWidth - 320),
-            y: Math.random() * (window.innerHeight - 240),
-          });
+          alert('広告をクリックしました！残念ですが0番注文口に戻ります。');
+          if (onForceReturnToZero) {
+            onForceReturnToZero();
+          }
         }}
       >
         <button
@@ -100,11 +102,12 @@ const FlashingAdPopup: React.FC<FlashingAdPopupProps> = ({
         >
           <h2
             style={{
-              margin: '0 0 15px 0',
-              fontSize: '18px',
+              margin: '0 0 clamp(8px, 1.5vh, 15px) 0',
+              fontSize: 'clamp(14px, 3.5vw, 20px)',
               fontWeight: 'bold',
               color: '#ffffff',
               animation: 'text-glow 1s infinite',
+              textAlign: 'center',
             }}
           >
             🎉 1000万円当選！！ 🎉
@@ -112,34 +115,41 @@ const FlashingAdPopup: React.FC<FlashingAdPopupProps> = ({
 
           <p
             style={{
-              margin: '0 0 15px 0',
-              fontSize: '14px',
+              margin: '0 0 clamp(8px, 1.5vh, 15px) 0',
+              fontSize: 'clamp(10px, 2.2vw, 14px)',
               color: '#ffffff',
-              lineHeight: '1.4',
+              lineHeight: '1.3',
               fontWeight: 'bold',
+              textAlign: 'center',
             }}
           >
-            おめでとうございます！<br />
-            あなたが選ばれました！<br />
+            おめでとうございます！
+            <br />
+            あなたが選ばれました！
+            <br />
             今すぐクリックして賞金を受け取ってください！
           </p>
 
           <button
             style={{
-              padding: '10px 20px',
+              padding: 'clamp(6px, 1.2vh, 12px) clamp(12px, 3vw, 20px)',
               border: 'none',
-              borderRadius: '25px',
+              borderRadius: 'clamp(15px, 3vw, 25px)',
               backgroundColor: '#00ff00',
               color: '#000000',
-              fontSize: '14px',
+              fontSize: 'clamp(10px, 2.2vw, 14px)',
               fontWeight: 'bold',
               cursor: 'pointer',
               animation: 'disco-flash 0.3s infinite',
               boxShadow: '0 0 10px rgba(0, 255, 0, 0.8)',
+              width: 'fit-content',
+              margin: '0 auto',
             }}
             onClick={(e) => {
               e.stopPropagation();
-              alert('詐欺サイトに誘導されました！おめでとうございます！');
+              if (onForceReturnToZero) {
+                onForceReturnToZero();
+              }
             }}
           >
             💰 今すぐ受け取る！ 💰

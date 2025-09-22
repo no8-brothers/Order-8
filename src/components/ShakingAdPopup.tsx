@@ -5,6 +5,7 @@ interface ShakingAdPopupProps {
   position: { x: number; y: number };
   zIndex: number;
   onClose: () => void;
+  onForceReturnToZero?: () => void;
 }
 
 const ShakingAdPopup: React.FC<ShakingAdPopupProps> = ({
@@ -12,6 +13,7 @@ const ShakingAdPopup: React.FC<ShakingAdPopupProps> = ({
   position,
   zIndex,
   onClose,
+  onForceReturnToZero,
 }) => {
   const [currentPosition, setCurrentPosition] = useState(position);
   const [isShaking, setIsShaking] = useState(true);
@@ -19,7 +21,7 @@ const ShakingAdPopup: React.FC<ShakingAdPopupProps> = ({
   useEffect(() => {
     const shakeInterval = setInterval(() => {
       if (isShaking) {
-        setCurrentPosition(prev => ({
+        setCurrentPosition((prev) => ({
           x: prev.x + (Math.random() - 0.5) * 10,
           y: prev.y + (Math.random() - 0.5) * 10,
         }));
@@ -34,10 +36,9 @@ const ShakingAdPopup: React.FC<ShakingAdPopupProps> = ({
     if (Math.random() < 0.1) {
       onClose();
     } else {
-      alert('ウイルスが検出されました！今すぐスキャンしてください！');
       setCurrentPosition({
-        x: Math.random() * (window.innerWidth - 280),
-        y: Math.random() * (window.innerHeight - 200),
+        x: Math.random() * Math.max(100, window.innerWidth - 280),
+        y: Math.random() * Math.max(100, window.innerHeight - 180),
       });
     }
   };
@@ -68,10 +69,10 @@ const ShakingAdPopup: React.FC<ShakingAdPopupProps> = ({
           left: `${currentPosition.x}px`,
           top: `${currentPosition.y}px`,
           zIndex: zIndex,
-          width: '280px',
-          height: '200px',
+          width: 'clamp(220px, 22vw, 320px)',
+          height: 'clamp(160px, 18vh, 240px)',
           borderRadius: '8px',
-          padding: '15px',
+          padding: 'clamp(10px, 1.5vw, 20px)',
           border: '3px solid #ffff00',
           animation: 'virus-alert 0.3s infinite',
           boxShadow: '0 0 20px rgba(255, 0, 0, 0.8)',
@@ -79,11 +80,9 @@ const ShakingAdPopup: React.FC<ShakingAdPopupProps> = ({
           userSelect: 'none',
         }}
         onClick={() => {
-          alert('⚠️ 危険！このコンピュータがハッキングされています！');
-          setCurrentPosition({
-            x: Math.random() * (window.innerWidth - 280),
-            y: Math.random() * (window.innerHeight - 200),
-          });
+          if (onForceReturnToZero) {
+            onForceReturnToZero();
+          }
         }}
       >
         <button
@@ -118,8 +117,8 @@ const ShakingAdPopup: React.FC<ShakingAdPopupProps> = ({
         >
           <div
             style={{
-              fontSize: '30px',
-              marginBottom: '10px',
+              fontSize: 'clamp(20px, 4vw, 30px)',
+              marginBottom: 'clamp(5px, 1vh, 10px)',
               animation: 'urgent-blink 0.2s infinite',
             }}
           >
@@ -128,11 +127,12 @@ const ShakingAdPopup: React.FC<ShakingAdPopupProps> = ({
 
           <h3
             style={{
-              margin: '0 0 10px 0',
-              fontSize: '16px',
+              margin: '0 0 clamp(6px, 1.2vh, 10px) 0',
+              fontSize: 'clamp(12px, 3vw, 16px)',
               fontWeight: 'bold',
               color: '#ffffff',
               animation: 'urgent-blink 0.4s infinite',
+              textAlign: 'center',
             }}
           >
             緊急警告！
@@ -140,32 +140,40 @@ const ShakingAdPopup: React.FC<ShakingAdPopupProps> = ({
 
           <p
             style={{
-              margin: '0 0 15px 0',
-              fontSize: '12px',
+              margin: '0 0 clamp(8px, 1.5vh, 15px) 0',
+              fontSize: 'clamp(9px, 2vw, 12px)',
               color: '#ffffff',
-              lineHeight: '1.3',
+              lineHeight: '1.2',
+              textAlign: 'center',
             }}
           >
-            あなたのコンピュータが<br />
-            <strong style={{ color: '#ffff00' }}>37個のウイルス</strong>に感染しています！<br />
+            あなたのコンピュータが
+            <br />
+            <strong style={{ color: '#ffff00' }}>37個のウイルス</strong>
+            に感染しています！
+            <br />
             今すぐ対処しないとデータが削除されます！
           </p>
 
           <button
             style={{
-              padding: '8px 15px',
+              padding: 'clamp(5px, 1vh, 8px) clamp(10px, 2.5vw, 15px)',
               border: 'none',
-              borderRadius: '20px',
+              borderRadius: 'clamp(12px, 2.5vw, 20px)',
               backgroundColor: '#ffff00',
               color: '#000000',
-              fontSize: '12px',
+              fontSize: 'clamp(9px, 2vw, 12px)',
               fontWeight: 'bold',
               cursor: 'pointer',
               animation: 'urgent-blink 0.5s infinite',
+              width: 'fit-content',
+              margin: '0 auto',
             }}
             onClick={(e) => {
               e.stopPropagation();
-              alert('偽ウイルス対策ソフトがダウンロードされました！');
+              if (onForceReturnToZero) {
+                onForceReturnToZero();
+              }
             }}
           >
             🛡️ 今すぐ修復する！

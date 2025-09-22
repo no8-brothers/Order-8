@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Header from './Header';
 import Footer from './Footer';
 import TitleScreen from './TitleScreen';
@@ -20,7 +20,7 @@ interface OrderPageProps {
   handleForceReturnToZero: () => void;
 }
 
-const orderPage: React.FC<OrderPageProps> = ({
+const OrderPage: React.FC<OrderPageProps> = ({
   exitNumber,
   size = 'medium',
   view,
@@ -34,6 +34,32 @@ const orderPage: React.FC<OrderPageProps> = ({
   handleMoveToPreviousCounter,
   handleForceReturnToZero,
 }) => {
+  const [isTransitioning, setIsTransitioning] = useState<boolean>(false);
+  const [displayContent, setDisplayContent] = useState({
+    view,
+    currentOrder,
+    currentOrderCounter,
+  });
+  const prevCounterRef = useRef(currentOrderCounter);
+
+  useEffect(() => {
+    // Only trigger fade transition when currentOrderCounter changes (not view changes)
+    if (prevCounterRef.current !== currentOrderCounter) {
+      setIsTransitioning(true);
+      prevCounterRef.current = currentOrderCounter;
+
+      const transitionTimer = setTimeout(() => {
+        setDisplayContent({ view, currentOrder, currentOrderCounter });
+        setIsTransitioning(false);
+      }, 300);
+
+      return () => clearTimeout(transitionTimer);
+    } else {
+      // For view changes without counter changes, update immediately
+      setDisplayContent({ view, currentOrder, currentOrderCounter });
+    }
+  }, [view, currentOrder, currentOrderCounter]);
+
   return (
     <div>
       <Header />
@@ -42,23 +68,30 @@ const orderPage: React.FC<OrderPageProps> = ({
         style={{
           minHeight: 'calc(100vh - 100px)',
           backgroundColor: 'var(--bg-dark)',
+          opacity: isTransitioning ? 0 : 1,
+          transition: 'opacity 300ms ease-in-out',
         }}
       >
-        {view === 'title' && <TitleScreen onStartOrder={handleStartOrder} />}
+        {displayContent.view === 'title' && (
+          <TitleScreen onStartOrder={handleStartOrder} />
+        )}
 
-        {view === 'menu' && (
+        {displayContent.view === 'menu' && (
           <MenuList
             onOrderCreate={handleOrderCreate}
             onBackToPreviousExit={handleBackToPreviousExit}
-            currentOrderCounter={currentOrderCounter}
+            currentOrderCounter={displayContent.currentOrderCounter}
             onMoveToNextCounter={handleMoveToNextCounter}
             onMoveToPreviousCounter={handleMoveToPreviousCounter}
             onForceReturnToZero={handleForceReturnToZero}
           />
         )}
 
-        {view === 'receipt' && (
-          <OrderReceipt order={currentOrder} onBackToMenu={handleBackToMenu} />
+        {displayContent.view === 'receipt' && (
+          <OrderReceipt
+            order={displayContent.currentOrder}
+            onBackToMenu={handleBackToMenu}
+          />
         )}
       </main>
 
@@ -67,4 +100,4 @@ const orderPage: React.FC<OrderPageProps> = ({
   );
 };
 
-export default orderPage;
+export default OrderPage;

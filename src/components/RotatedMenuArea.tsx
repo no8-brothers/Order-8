@@ -19,10 +19,12 @@ const RotatedMenuArea: React.FC<RotatedMenuAreaProps> = ({
 }) => {
   const [isRotated, setIsRotated] = useState(false);
 
-  // 商品が選択された時に回転
+  // 商品が選択された時に回転、選択解除時にリセット
   useEffect(() => {
     if (selectedItem) {
       setIsRotated(true);
+    } else {
+      setIsRotated(false);
     }
   }, [selectedItem]);
 

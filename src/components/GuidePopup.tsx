@@ -7,7 +7,12 @@ interface GuidePopupProps {
   onToggle: () => void;
 }
 
-const GuidePopup: React.FC<GuidePopupProps> = ({ isVisible, isExpanded, onClose, onToggle }) => {
+const GuidePopup: React.FC<GuidePopupProps> = ({
+  isVisible,
+  isExpanded,
+  onClose,
+  onToggle,
+}) => {
   if (!isVisible) return null;
 
   return (
@@ -38,7 +43,8 @@ const GuidePopup: React.FC<GuidePopupProps> = ({ isVisible, isExpanded, onClose,
             width: '60px',
             height: '60px',
             borderRadius: '50%',
-            background: 'conic-gradient(from 0deg, #ffff00, #ffeb3b, #fff59d, #ffff00, #ffd700, #ffff00)',
+            background:
+              'conic-gradient(from 0deg, #ffff00, #ffeb3b, #fff59d, #ffff00, #ffd700, #ffff00)',
             color: 'white',
             display: 'flex',
             alignItems: 'center',
@@ -47,7 +53,8 @@ const GuidePopup: React.FC<GuidePopupProps> = ({ isVisible, isExpanded, onClose,
             fontWeight: 'bold',
             cursor: 'pointer',
             zIndex: 1000,
-            boxShadow: '0 4px 12px rgba(0, 0, 0, 0.3), 0 0 15px rgba(255, 255, 0, 0.3), 0 0 20px rgba(255, 235, 59, 0.2)',
+            boxShadow:
+              '0 4px 12px rgba(0, 0, 0, 0.3), 0 0 15px rgba(255, 255, 0, 0.3), 0 0 20px rgba(255, 235, 59, 0.2)',
           }}
           onClick={onToggle}
         >
@@ -91,53 +98,85 @@ const GuidePopup: React.FC<GuidePopupProps> = ({ isVisible, isExpanded, onClose,
             }}
             onClick={(e) => e.stopPropagation()}
           >
-          {/* タイトルバー（黒背景） */}
-          <div
-            style={{
-              backgroundColor: '#333',
-              color: 'white',
-              padding: 'clamp(8px, 2vw, 16px) clamp(12px, 3vw, 24px)',
-              fontSize: 'clamp(1rem, 3vw, 1.6rem)',
-              fontWeight: 'bold',
-              textAlign: 'center',
-              margin: '0',
-            }}
-          >
-            ご案内 Guide
-          </div>
-
-          {/* 内容エリア */}
-          {isExpanded && (
+            {/* タイトルバー（黒背景） */}
             <div
               style={{
-                padding: 'clamp(16px, 4vw, 32px)',
-                fontSize: 'clamp(0.8rem, 2.5vw, 1.1rem)',
-                lineHeight: '1.8',
-                color: '#333',
-                backgroundColor: '#e8e8e8',
+                backgroundColor: '#333',
+                color: 'white',
+                padding: 'clamp(8px, 2vw, 16px) clamp(12px, 3vw, 24px)',
+                fontSize: 'clamp(1rem, 3vw, 1.6rem)',
+                fontWeight: 'bold',
+                textAlign: 'center',
+                margin: '0',
               }}
             >
-              <div style={{ marginBottom: '16px' }}>
-                <strong>異変を見逃さないこと</strong><br />
-                <span style={{ fontSize: 'clamp(0.7rem, 2vw, 0.95rem)', color: '#666' }}>Don't overlook any anomalies.</span>
-              </div>
-
-              <div style={{ marginBottom: '16px' }}>
-                <strong>異変を見つけたら、すぐに引き返すこと</strong><br />
-                <span style={{ fontSize: 'clamp(0.7rem, 2vw, 0.95rem)', color: '#666' }}>If you find anomalies, turn back immediately.</span>
-              </div>
-
-              <div style={{ marginBottom: '16px' }}>
-                <strong>異変が見つからなかったら、引き返さないこと</strong><br />
-                <span style={{ fontSize: 'clamp(0.7rem, 2vw, 0.95rem)', color: '#666' }}>If you don't find anomalies, do not turn back.</span>
-              </div>
-
-              <div style={{ marginBottom: '0' }}>
-                <strong>8番注文口でかき氷を注文すること</strong><br />
-                <span style={{ fontSize: 'clamp(0.7rem, 2vw, 0.95rem)', color: '#666' }}>Order shaved ice at Counter 8.</span>
-              </div>
+              ご案内 Guide
             </div>
-          )}
+
+            {/* 内容エリア */}
+            {isExpanded && (
+              <div
+                style={{
+                  padding: 'clamp(16px, 4vw, 32px)',
+                  fontSize: 'clamp(0.8rem, 2.5vw, 1.1rem)',
+                  lineHeight: '1.8',
+                  color: '#333',
+                  backgroundColor: '#e8e8e8',
+                }}
+              >
+                <div style={{ marginBottom: '16px' }}>
+                  <strong>異変を見逃さないこと</strong>
+                  <br />
+                  <span
+                    style={{
+                      fontSize: 'clamp(0.7rem, 2vw, 0.95rem)',
+                      color: '#666',
+                    }}
+                  >
+                    Don't overlook any anomalies.
+                  </span>
+                </div>
+
+                <div style={{ marginBottom: '16px' }}>
+                  <strong>異変を見つけたら、すぐに引き返すこと</strong>
+                  <br />
+                  <span
+                    style={{
+                      fontSize: 'clamp(0.7rem, 2vw, 0.95rem)',
+                      color: '#666',
+                    }}
+                  >
+                    If you find anomalies, turn back immediately.
+                  </span>
+                </div>
+
+                <div style={{ marginBottom: '16px' }}>
+                  <strong>異変が見つからなかったら、引き返さないこと</strong>
+                  <br />
+                  <span
+                    style={{
+                      fontSize: 'clamp(0.7rem, 2vw, 0.95rem)',
+                      color: '#666',
+                    }}
+                  >
+                    If you don't find anomalies, do not turn back.
+                  </span>
+                </div>
+
+                <div style={{ marginBottom: '0' }}>
+                  <strong>8番注文口でかき氷を注文すること</strong>
+                  <br />
+                  <span
+                    style={{
+                      fontSize: 'clamp(0.7rem, 2vw, 0.95rem)',
+                      color: '#666',
+                    }}
+                  >
+                    Order shaved ice at Counter 8.
+                  </span>
+                </div>
+              </div>
+            )}
           </div>
         </div>
       )}

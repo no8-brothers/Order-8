@@ -13,7 +13,10 @@ interface BaseMenuAreaProps {
   className?: string;
   containerStyle?: React.CSSProperties;
   children?: ReactNode;
-  renderItemContent?: (item: MenuItem, index: number) => { name: string; description: string };
+  renderItemContent?: (
+    item: MenuItem,
+    index: number
+  ) => { name: string; description: string };
 }
 
 const BaseMenuArea: React.FC<BaseMenuAreaProps> = ({
@@ -38,7 +41,9 @@ const BaseMenuArea: React.FC<BaseMenuAreaProps> = ({
       <div style={{ display: 'grid', gap: '12px', marginBottom: '30px' }}>
         {menu.map((item, index) => {
           const isSelected = selectedItem && selectedItem.id === item.id;
-          const content = renderItemContent ? renderItemContent(item, index) : { name: item.name, description: item.description };
+          const content = renderItemContent
+            ? renderItemContent(item, index)
+            : { name: item.name, description: item.description };
 
           return (
             <div

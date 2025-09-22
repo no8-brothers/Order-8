@@ -38,8 +38,10 @@ test('renders ORDER-8 system header', () => {
 
 test('renders title screen initially', () => {
   render(<App />);
-  const titleElement = screen.getByText(/タップして/i);
-  expect(titleElement).toBeInTheDocument();
+  const startButton = screen.getByRole('button', {
+    name: /タップで.*注文開始/i,
+  });
+  expect(startButton).toBeInTheDocument();
 });
 
 test('order counter starts at 0', () => {

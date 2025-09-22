@@ -89,7 +89,6 @@ function TitleScreen({ onStartOrder }: TitleScreenProps): React.JSX.Element {
           かき氷注文システム
         </h1>
 
-
         <button
           onClick={handleStartClick}
           style={{

@@ -11,7 +11,7 @@ const ExitSign: React.FC<ExitSignProps> = ({ exitNumber, size = 'medium' }) => {
       small: {
         padding: '8px 16px',
         fontSize: 'clamp(0.7rem, 2.5vw, 0.9rem)',
-        letterSpacing: '1px'
+        letterSpacing: '1px',
       },
       medium: {
         padding: '16px 32px',
@@ -21,7 +21,7 @@ const ExitSign: React.FC<ExitSignProps> = ({ exitNumber, size = 'medium' }) => {
       large: {
         padding: '20px 40px',
         fontSize: 'clamp(1.2rem, 5vw, 1.8rem)',
-        letterSpacing: '3px'
+        letterSpacing: '3px',
       },
     };
     return sizes[size];

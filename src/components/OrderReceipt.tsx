@@ -108,7 +108,13 @@ const OrderReceipt: React.FC<OrderReceiptProps> = ({ order, onBackToMenu }) => {
 
       <div className="exit-sign" style={{ padding: '40px', marginTop: '40px' }}>
         {/* 改札機風ヘッダー */}
-        <div style={{ marginBottom: '40px', margin: '0 -20px 40px -20px', textAlign: 'center' }}>
+        <div
+          style={{
+            marginBottom: '40px',
+            margin: '0 -20px 40px -20px',
+            textAlign: 'center',
+          }}
+        >
           <div
             style={{
               backgroundColor: 'var(--accent-yellow)',
@@ -240,7 +246,6 @@ const OrderReceipt: React.FC<OrderReceiptProps> = ({ order, onBackToMenu }) => {
             STATUS: {order.status.toUpperCase()}
           </div>
         </div>
-
       </div>
     </div>
   );

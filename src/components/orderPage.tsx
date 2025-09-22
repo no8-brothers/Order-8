@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Header from './Header';
 import Footer from './Footer';
 import TitleScreen from './TitleScreen';
@@ -40,11 +40,13 @@ const OrderPage: React.FC<OrderPageProps> = ({
     currentOrder,
     currentOrderCounter,
   });
+  const prevCounterRef = useRef(currentOrderCounter);
 
   useEffect(() => {
     // Only trigger fade transition when currentOrderCounter changes (not view changes)
-    if (displayContent.currentOrderCounter !== currentOrderCounter) {
+    if (prevCounterRef.current !== currentOrderCounter) {
       setIsTransitioning(true);
+      prevCounterRef.current = currentOrderCounter;
 
       const transitionTimer = setTimeout(() => {
         setDisplayContent({ view, currentOrder, currentOrderCounter });

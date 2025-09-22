@@ -108,21 +108,23 @@ const OrderReceipt: React.FC<OrderReceiptProps> = ({ order, onBackToMenu }) => {
 
       <div className="exit-sign" style={{ padding: '40px', marginTop: '40px' }}>
         {/* 改札機風ヘッダー */}
-        <div
-          style={{
-            backgroundColor: 'var(--accent-yellow)',
-            color: 'var(--bg-darker)',
-            padding: '10px 20px',
-            borderRadius: '4px',
-            fontSize: '1.1rem',
-            fontWeight: 'bold',
-            marginBottom: '30px',
-            display: 'inline-block',
-            border: '2px solid var(--border-gray)',
-            letterSpacing: '2px',
-          }}
-        >
-          ■ ORDER COMPLETE ■
+        <div style={{ marginBottom: '40px', margin: '0 -20px 40px -20px', textAlign: 'center' }}>
+          <div
+            style={{
+              backgroundColor: 'var(--accent-yellow)',
+              color: 'var(--bg-darker)',
+              padding: '10px 15px',
+              borderRadius: '4px',
+              fontSize: 'clamp(0.9rem, 3vw, 1.1rem)',
+              fontWeight: 'bold',
+              display: 'inline-block',
+              border: '2px solid var(--border-gray)',
+              letterSpacing: 'clamp(1px, 1vw, 2px)',
+              whiteSpace: 'nowrap',
+            }}
+          >
+            ■ ORDER COMPLETE ■
+          </div>
         </div>
 
         {/* 大きな注文番号表示 */}

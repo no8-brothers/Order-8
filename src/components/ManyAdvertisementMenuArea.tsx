@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import BaseMenuArea from './BaseMenuArea';
 import FlashingAdPopup from './FlashingAdPopup';
 import ShakingAdPopup from './ShakingAdPopup';
@@ -47,16 +47,16 @@ const ManyAdvertisementMenuArea: React.FC<ManyAdvertisementMenuAreaProps> = ({
     'moving',
   ];
 
-  const generateRandomPosition = () => {
+  const generateRandomPosition = useCallback(() => {
     const maxWidth = Math.min(400, Math.max(280, window.innerWidth * 0.3));
     const maxHeight = Math.min(320, Math.max(200, window.innerHeight * 0.25));
     return {
       x: Math.random() * Math.max(100, window.innerWidth - maxWidth),
       y: Math.random() * Math.max(100, window.innerHeight - maxHeight),
     };
-  };
+  }, []);
 
-  const createNewAd = (): AdInstance => {
+  const createNewAd = useCallback((): AdInstance => {
     const randomType = adTypes[Math.floor(Math.random() * adTypes.length)];
     return {
       id: `ad-${Date.now()}-${Math.random()}`,
@@ -64,7 +64,7 @@ const ManyAdvertisementMenuArea: React.FC<ManyAdvertisementMenuAreaProps> = ({
       position: generateRandomPosition(),
       zIndex: nextZIndex,
     };
-  };
+  }, [adTypes, generateRandomPosition, nextZIndex]);
 
   // 注文口が変更されたときに広告をリセット
   useEffect(() => {
@@ -107,7 +107,7 @@ const ManyAdvertisementMenuArea: React.FC<ManyAdvertisementMenuAreaProps> = ({
       clearTimeout(initialTimeout);
       if (intervalRef.current) clearInterval(intervalRef.current);
     };
-  }, [currentOrderCounter]); // currentOrderCounterが変更されたときに実行
+  }, [currentOrderCounter, adTypes, createNewAd, generateRandomPosition]); // currentOrderCounterが変更されたときに実行
 
   const handleCloseAd = (id: string) => {
     setAds((prev) => prev.filter((ad) => ad.id !== id));

@@ -70,8 +70,8 @@ const BaseMenuArea: React.FC<BaseMenuAreaProps> = ({
               {/* 路線図風の番号 */}
               <div
                 style={{
-                  width: '40px',
-                  height: '40px',
+                  width: 'clamp(35px, 8vw, 45px)',
+                  height: 'clamp(35px, 8vw, 45px)',
                   borderRadius: '50%',
                   backgroundColor: isSelected
                     ? 'var(--accent-yellow)'
@@ -81,7 +81,7 @@ const BaseMenuArea: React.FC<BaseMenuAreaProps> = ({
                   alignItems: 'center',
                   justifyContent: 'center',
                   fontWeight: 'bold',
-                  fontSize: '1rem',
+                  fontSize: 'clamp(0.8rem, 3vw, 1.1rem)',
                   flexShrink: 0,
                 }}
               >
@@ -93,7 +93,7 @@ const BaseMenuArea: React.FC<BaseMenuAreaProps> = ({
                   style={{
                     margin: '0 0 8px 0',
                     color: 'var(--text-light)',
-                    fontSize: '1.2rem',
+                    fontSize: 'clamp(1.1rem, 4.5vw, 1.5rem)',
                     fontWeight: 'bold',
                   }}
                 >
@@ -103,7 +103,7 @@ const BaseMenuArea: React.FC<BaseMenuAreaProps> = ({
                   style={{
                     margin: '0',
                     color: 'var(--text-dim)',
-                    fontSize: '0.9rem',
+                    fontSize: 'clamp(0.8rem, 3vw, 1rem)',
                     lineHeight: '1.4',
                   }}
                 >

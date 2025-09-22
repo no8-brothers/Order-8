@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 const getStatusText = (status: string) => {
   switch (status) {
@@ -40,6 +40,40 @@ interface OrderReceiptProps {
 }
 
 const OrderReceipt: React.FC<OrderReceiptProps> = ({ order, onBackToMenu }) => {
+  useEffect(() => {
+    if (!order) return;
+
+    const receiptText = `
+===========================================
+        ORDER RECEIPT
+===========================================
+
+ORDER NUMBER: #${order.order_number}
+MENU NAME: ${order.menu_name}
+STATUS: ${getStatusText(order.status)}
+
+-------------------------------------------
+DETAILS:
+ORDER ID: ${order.id}
+MENU ID: ${order.menu_item_id}
+DATE: ${new Date().toLocaleString('ja-JP')}
+
+-------------------------------------------
+Thank you for your order!
+===========================================
+    `.trim();
+
+    const blob = new Blob([receiptText], { type: 'text/plain' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `order_${order.order_number}_receipt.txt`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+  }, [order]);
+
   if (!order) {
     return (
       <div
@@ -174,9 +208,15 @@ const OrderReceipt: React.FC<OrderReceiptProps> = ({ order, onBackToMenu }) => {
               color: 'var(--text-light)',
               fontSize: '1.5rem',
               letterSpacing: '1px',
+              lineHeight: '1.6',
             }}
           >
-            {order.menu_name}
+            {order.menu_name.split(' ').map((word, index) => (
+              <span key={index}>
+                {word}
+                {index < order.menu_name.split(' ').length - 1 && <br />}
+              </span>
+            ))}
           </h3>
           <div
             style={{

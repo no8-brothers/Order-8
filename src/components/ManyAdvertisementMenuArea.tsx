@@ -37,7 +37,6 @@ const ManyAdvertisementMenuArea: React.FC<ManyAdvertisementMenuAreaProps> = ({
   const [ads, setAds] = useState<AdInstance[]>([]);
   const [nextZIndex, setNextZIndex] = useState(2000);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
-  const initialTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const clickCountRef = useRef(0);
 
   const adTypes: AdInstance['type'][] = [

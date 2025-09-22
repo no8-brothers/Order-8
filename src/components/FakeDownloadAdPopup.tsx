@@ -38,7 +38,7 @@ const FakeDownloadAdPopup: React.FC<FakeDownloadAdPopupProps> = ({
 
       return () => clearInterval(interval);
     }
-  }, [isDownloading]);
+  }, [isDownloading, onForceReturnToZero]);
 
   const handleFakeClose = (e: React.MouseEvent) => {
     e.stopPropagation();

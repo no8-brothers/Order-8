@@ -16,20 +16,17 @@ const ShakingAdPopup: React.FC<ShakingAdPopupProps> = ({
   onForceReturnToZero,
 }) => {
   const [currentPosition, setCurrentPosition] = useState(position);
-  const [isShaking, setIsShaking] = useState(true);
 
   useEffect(() => {
     const shakeInterval = setInterval(() => {
-      if (isShaking) {
-        setCurrentPosition((prev) => ({
-          x: prev.x + (Math.random() - 0.5) * 10,
-          y: prev.y + (Math.random() - 0.5) * 10,
-        }));
-      }
+      setCurrentPosition((prev) => ({
+        x: prev.x + (Math.random() - 0.5) * 10,
+        y: prev.y + (Math.random() - 0.5) * 10,
+      }));
     }, 50);
 
     return () => clearInterval(shakeInterval);
-  }, [isShaking]);
+  }, []);
 
   const handleFakeClose = (e: React.MouseEvent) => {
     e.stopPropagation();

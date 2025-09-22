@@ -71,18 +71,6 @@ const MovingAdPopup: React.FC<MovingAdPopupProps> = ({
     }
   };
 
-  const handleClick = () => {
-    // クリックすると一時的に動きを止める
-    setDirection({ x: 0, y: 0 });
-
-    setTimeout(() => {
-      setDirection({
-        x: (Math.random() - 0.5) * 6,
-        y: (Math.random() - 0.5) * 6,
-      });
-    }, 2000);
-  };
-
   return (
     <>
       <style>

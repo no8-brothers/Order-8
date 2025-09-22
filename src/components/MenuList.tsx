@@ -171,7 +171,11 @@ const MenuList: React.FC<MenuListProps> = ({
       try {
         setLoading(true);
         const response = await kakigoriApi.getMenu();
-        setMenu(response.menu);
+        const menuWithNoSpaces = response.menu.map((item: MenuItem) => ({
+          ...item,
+          name: item.name.replace(/\s+/g, '')
+        }));
+        setMenu(menuWithNoSpaces);
       } catch (err) {
         setError((err as Error).message);
       } finally {

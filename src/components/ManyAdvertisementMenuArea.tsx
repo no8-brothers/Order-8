@@ -193,40 +193,7 @@ const ManyAdvertisementMenuArea: React.FC<ManyAdvertisementMenuAreaProps> = ({
             position: 'relative',
             zIndex: 1,
           }}
-        >
-          {/* メニュー上部に警告メッセージ */}
-          <div
-            style={{
-              marginBottom: '20px',
-              padding: '15px',
-              backgroundColor: '#fff3cd',
-              border: '2px solid #ffeaa7',
-              borderRadius: '8px',
-              textAlign: 'center',
-            }}
-          >
-            <h3
-              style={{
-                margin: '0 0 8px 0',
-                color: '#856404',
-                fontSize: '1.2rem',
-              }}
-            >
-              🎯 スペシャルオファー中！
-            </h3>
-            <p
-              style={{
-                margin: '0',
-                color: '#856404',
-                fontSize: '0.9rem',
-              }}
-            >
-              メニューを選択すると、お得な広告が表示されます！
-              <br />
-              <small>（広告を閉じようとするとさらに表示されます）</small>
-            </p>
-          </div>
-        </BaseMenuArea>
+        ></BaseMenuArea>
       </div>
 
       {/* 広告ポップアップ群 */}

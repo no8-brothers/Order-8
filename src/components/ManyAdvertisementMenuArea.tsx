@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import BaseMenuArea from './BaseMenuArea';
 import FlashingAdPopup from './FlashingAdPopup';
 import ShakingAdPopup from './ShakingAdPopup';
@@ -35,7 +35,6 @@ const ManyAdvertisementMenuArea: React.FC<ManyAdvertisementMenuAreaProps> = ({
   currentOrderCounter,
 }) => {
   const [ads, setAds] = useState<AdInstance[]>([]);
-  const [nextZIndex, setNextZIndex] = useState(2000);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
   const clickCountRef = useRef(0);
 
@@ -70,7 +69,6 @@ const ManyAdvertisementMenuArea: React.FC<ManyAdvertisementMenuAreaProps> = ({
   useEffect(() => {
     // 既存の広告をクリア
     setAds([]);
-    setNextZIndex(2000);
     clickCountRef.current = 0;
 
     // 既存のタイマーをクリア
@@ -82,7 +80,6 @@ const ManyAdvertisementMenuArea: React.FC<ManyAdvertisementMenuAreaProps> = ({
     const initialTimeout = setTimeout(() => {
       const initialAd = createNewAd();
       setAds([initialAd]);
-      setNextZIndex((prev) => prev + 1);
     }, 1000);
 
     // 定期的に広告を追加（最大10個まで）- より短いスパンで

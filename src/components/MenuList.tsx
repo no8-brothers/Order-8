@@ -63,7 +63,7 @@ const MenuList: React.FC<MenuListProps> = ({
       // 現在: ID 0 (正常), ID 1 (ちらつき), ID 2 (文字化け), ID 3 (アカウント登録ポップアップ), ID 4 (利用規約)
       // , ID 5 (画面回転), ID 6 (ボタンサイズ変更), ID 7(広告だらけ) の7種類
       // 将来的に異変が増えた場合、ここで利用可能なIDの数を動的に取得
-      const availableIds = [0, 1, 2, 3, 4, 5 , 6, 7];
+      const availableIds = [0, 1, 2, 3, 4, 5, 6, 7];
       // MenuArea, FlashingMenuArea, GarbledMenuArea, AccountPromptMenuArea, TermsOfService, RotatedMenuArea, WeirdButtons, ManyAdvertisementMenuArea
       anomalyId = availableIds[Math.floor(Math.random() * availableIds.length)];
     }

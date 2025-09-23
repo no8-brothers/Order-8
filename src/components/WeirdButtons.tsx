@@ -67,7 +67,7 @@ const WeirdButtons: React.FC<WeirdButtonsProps> = ({
                 transform: `scale(${sizes[index]})`,
               }}
             >
-              {/* 路線図風の番号 */ }
+              {/* 路線図風の番号 */}
               <div
                 style={{
                   width: '40px',

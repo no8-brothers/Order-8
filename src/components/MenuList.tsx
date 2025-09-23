@@ -10,7 +10,7 @@ import RotatedMenuArea from './RotatedMenuArea';
 import ManyAdvertisementMenuArea from './ManyAdvertisementMenuArea';
 import GuidePopup from './GuidePopup';
 import { orderStorage } from '../utils/orderStorage';
-//import WeirdButtons from './WeirdButtons';
+import WeirdButtons from './WeirdButtons';
 import TermsOfService from './TermsOfService';
 
 interface MenuListProps {
@@ -63,7 +63,7 @@ const MenuList: React.FC<MenuListProps> = ({
       // 現在: ID 0 (正常), ID 1 (ちらつき), ID 2 (文字化け), ID 3 (アカウント登録ポップアップ), ID 4 (利用規約)
       // , ID 5 (画面回転), ID 6 (ボタンサイズ変更), ID 7(広告だらけ) の7種類
       // 将来的に異変が増えた場合、ここで利用可能なIDの数を動的に取得
-      const availableIds = [0, 1, 2, 3, 4, 5/*, 6*/, 7];
+      const availableIds = [0, 1, 2, 3, 4, 5 , 6, 7];
       // MenuArea, FlashingMenuArea, GarbledMenuArea, AccountPromptMenuArea, TermsOfService, RotatedMenuArea, WeirdButtons, ManyAdvertisementMenuArea
       anomalyId = availableIds[Math.floor(Math.random() * availableIds.length)];
     }
@@ -103,8 +103,8 @@ const MenuList: React.FC<MenuListProps> = ({
         return '(利用規約の異変)';
       case 5:
         return '(画面回転異変)';
-      //case 6:
-      //  return '(ボタンサイズの異変)';
+      case 6:
+        return '(ボタンサイズの異変)';
       case 7:
         return '(広告だらけ異変)';
       default:
@@ -143,8 +143,8 @@ const MenuList: React.FC<MenuListProps> = ({
         );
       case 5:
         return <RotatedMenuArea {...commonProps} />;
-      //case 6:
-        //return <WeirdButtons {...commonProps} />;
+      case 6:
+        return <WeirdButtons {...commonProps} />;
       case 7:
         return (
           <ManyAdvertisementMenuArea

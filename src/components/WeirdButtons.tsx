@@ -1,4 +1,4 @@
-/*import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 
 interface MenuItem {
   id: string;
@@ -67,7 +67,7 @@ const WeirdButtons: React.FC<WeirdButtonsProps> = ({
                 transform: `scale(${sizes[index]})`,
               }}
             >
-              {/* 路線図風の番号 *//*}
+              {/* 路線図風の番号 */ }
               <div
                 style={{
                   width: '40px',
@@ -119,4 +119,3 @@ const WeirdButtons: React.FC<WeirdButtonsProps> = ({
 };
 
 export default WeirdButtons;
-*/

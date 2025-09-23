@@ -61,7 +61,6 @@ const MenuList: React.FC<MenuListProps> = ({
     if (currentOrderCounter === 0 || currentOrderCounter === 8) {
       anomalyId = 0; // 0番と8番は必ず正常
     } else {
-
       // 現在: ID 0 (正常), ID 1 (ちらつき), ID 2 (文字化け), ID 3 (アカウント登録ポップアップ), ID 4 (利用規約)
       // , ID 5 (画面回転), ID 6 (ボタンサイズ変更), ID 7(広告だらけ) ID 9 (選択解除) の9種類
       // 将来的に異変が増えた場合、ここで利用可能なIDの数を動的に取得

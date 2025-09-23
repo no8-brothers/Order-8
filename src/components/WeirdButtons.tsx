@@ -25,7 +25,7 @@ const WeirdButtons: React.FC<WeirdButtonsProps> = ({
         const newSizes = [...prev];
         const randomIndex = Math.floor(Math.random() * menu.length);
         // 1つだけランダムなサイズに変更
-        newSizes[randomIndex] = 0.01 + Math.random() * 0.3;
+        newSizes[randomIndex] = 0.01 + Math.random() * 0.2;
         return newSizes;
       });
     });

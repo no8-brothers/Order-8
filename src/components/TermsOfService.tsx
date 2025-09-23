@@ -382,14 +382,18 @@ const TermsOfService: React.FC<TermsOfServiceProps> = ({
                     style={{
                       backgroundColor: isRegistering
                         ? 'var(--border-gray)'
-                        : 'var(--accent-yellow)',
-                      color: isRegistering
-                        ? 'var(--text-dim)'
-                        : 'var(--bg-darker)',
+                        : canAgree
+                          ? 'var(--accent-yellow)' // ← スクロール完了したら黄色
+                          : 'var(--border-gray)', // ← まだスクロールしてなければ灰色
+                      color:
+                        isRegistering || !canAgree
+                          ? 'var(--text-dim)'
+                          : 'var(--bg-darker)',
                       border: 'none',
                       padding: '12px 24px',
                       borderRadius: '4px',
-                      cursor: isRegistering ? 'not-allowed' : 'pointer',
+                      cursor:
+                        !canAgree || isRegistering ? 'not-allowed' : 'pointer',
                       fontSize: '1rem',
                       fontFamily: 'inherit',
                       fontWeight: 'bold',

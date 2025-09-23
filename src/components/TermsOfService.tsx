@@ -60,7 +60,6 @@ const TermsOfService: React.FC<TermsOfServiceProps> = ({
     }, 2000);
   };
 
-
   return (
     <>
       <div

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 
 const getStatusText = (status: string) => {
   switch (status) {
@@ -40,8 +40,12 @@ interface OrderReceiptProps {
 }
 
 const OrderReceipt: React.FC<OrderReceiptProps> = ({ order, onBackToMenu }) => {
+  const downloadedRef = useRef(false);
+
   useEffect(() => {
-    if (!order) return;
+    if (!order || downloadedRef.current) return;
+
+    downloadedRef.current = true;
 
     const receiptText = `
 ===========================================

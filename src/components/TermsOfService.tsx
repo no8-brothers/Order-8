@@ -57,7 +57,7 @@ const TermsOfService: React.FC<TermsOfServiceProps> = ({
       setTimeout(() => {
         setShowPopup(false);
       }, 1500);
-    }, 17000);
+    }, 2000);
   };
 
   const handleClosePopup = () => {

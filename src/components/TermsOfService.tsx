@@ -60,9 +60,6 @@ const TermsOfService: React.FC<TermsOfServiceProps> = ({
     }, 2000);
   };
 
-  const handleClosePopup = () => {
-    setShowPopup(false);
-  };
 
   return (
     <>

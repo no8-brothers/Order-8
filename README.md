@@ -1,3 +1,10 @@
+## セットアップ
+
+`.env`ファイルに`.env.example`を参考にurlとidを保存し、
+'npm install'でパッケージをインストールし、
+`npm start`でサーバ起動。
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

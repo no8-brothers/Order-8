@@ -3,6 +3,7 @@ import { kakigoriApi } from '../api/client';
 import ExitButton from './ExitButton';
 import ExitSign from './ExitSign';
 import MenuArea from './MenuArea';
+import UnselectingMenuArea from './UnselectingMenuArea';
 import FlashingMenuArea from './FlashingMenuArea';
 import GarbledMenuArea from './GarbledMenuArea';
 import AccountPromptMenuArea from './AccountPromptMenuArea';
@@ -60,10 +61,11 @@ const MenuList: React.FC<MenuListProps> = ({
     if (currentOrderCounter === 0 || currentOrderCounter === 8) {
       anomalyId = 0; // 0番と8番は必ず正常
     } else {
+
       // 現在: ID 0 (正常), ID 1 (ちらつき), ID 2 (文字化け), ID 3 (アカウント登録ポップアップ), ID 4 (利用規約)
-      // , ID 5 (画面回転), ID 6 (ボタンサイズ変更), ID 7(広告だらけ) の7種類
+      // , ID 5 (画面回転), ID 6 (ボタンサイズ変更), ID 7(広告だらけ) ID 9 (選択解除) の9種類
       // 将来的に異変が増えた場合、ここで利用可能なIDの数を動的に取得
-      const availableIds = [0, 1, 2, 3, 4, 5, 6, 7];
+      const availableIds = [0, 1, 2, 3, 4, 5, 6, 7, 9];
       // MenuArea, FlashingMenuArea, GarbledMenuArea, AccountPromptMenuArea, TermsOfService, RotatedMenuArea, WeirdButtons, ManyAdvertisementMenuArea
       anomalyId = availableIds[Math.floor(Math.random() * availableIds.length)];
     }
@@ -107,6 +109,8 @@ const MenuList: React.FC<MenuListProps> = ({
         return '(ボタンサイズの異変)';
       case 7:
         return '(広告だらけ異変)';
+      case 9:
+        return '(選択解除異変)';
       default:
         return `(異変ID: ${id})`;
     }
@@ -153,6 +157,8 @@ const MenuList: React.FC<MenuListProps> = ({
             currentOrderCounter={currentOrderCounter}
           />
         );
+      case 9:
+        return <UnselectingMenuArea {...commonProps} />;
       default:
         // 未定義のIDの場合は正常なMenuAreaをフォールバック
         return <MenuArea {...commonProps} />;

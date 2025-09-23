@@ -31,7 +31,7 @@ const WeirdButtons: React.FC<WeirdButtonsProps> = ({
     });
 
     return () => clearInterval(interval);
-  }, []);
+  }, [manu.length]);
 
   return (
     <div
